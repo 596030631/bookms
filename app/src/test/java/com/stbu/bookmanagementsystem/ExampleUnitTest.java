@@ -1,4 +1,4 @@
-package com.stbu.bookmanagementsystem;
+package com.stbu.bookms;
 
 import org.junit.Test;
 

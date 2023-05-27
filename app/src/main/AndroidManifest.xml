@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.stbu.bookmanagementsystem">
+    package="com.stbu.bookms">
 
     <application
         android:allowBackup="true"
@@ -10,59 +10,37 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BookManagementSystem">
         <activity
-            android:name=".activity.SplashActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+            android:name=".activity.FriendsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.ExchangeActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".activity.RegisterActivity"
+            android:exported="false" />
+        <activity android:name=".activity.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name="com.stbu.bookmanagementsystem.activity.LoginActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity
-            android:name="com.stbu.bookmanagementsystem.activity.AdminActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity
-            android:name="com.stbu.bookmanagementsystem.activity.UserActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity
-            android:name="com.stbu.bookmanagementsystem.activity.ManageUserActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity
-            android:name="com.stbu.bookmanagementsystem.activity.ManageBookActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity
-            android:name="com.stbu.bookmanagementsystem.activity.AddUserActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity
-            android:name="com.stbu.bookmanagementsystem.activity.ViewUserActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity
-            android:name="com.stbu.bookmanagementsystem.activity.UpdateUserActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity
-            android:name="com.stbu.bookmanagementsystem.activity.AddBookActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity
-            android:name="com.stbu.bookmanagementsystem.activity.ViewBookActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity
-            android:name="com.stbu.bookmanagementsystem.activity.UpdateBookActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity
-            android:name="com.stbu.bookmanagementsystem.activity.ViewBorrowActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity
-            android:name="com.stbu.bookmanagementsystem.activity.FindBookActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity
-            android:name="com.stbu.bookmanagementsystem.activity.BorrowBookActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity
-            android:name="com.stbu.bookmanagementsystem.activity.UpdatePasswordActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-
+        <activity android:name=".activity.LoginActivity" />
+        <activity android:name=".activity.AdminActivity" />
+        <activity android:name=".activity.UserActivity" />
+        <activity android:name=".activity.ManageUserActivity" />
+        <activity android:name=".activity.ManageBookActivity" />
+        <activity android:name=".activity.AddUserActivity" />
+        <activity android:name=".activity.ViewUserActivity" />
+        <activity android:name=".activity.UpdateUserActivity" />
+        <activity android:name=".activity.AddBookActivity" />
+        <activity android:name=".activity.ViewBookActivity" />
+        <activity android:name=".activity.UpdateBookActivity" />
+        <activity android:name=".activity.ViewBorrowActivity" />
+        <activity android:name=".activity.FindBookActivity" />
+        <activity android:name=".activity.BorrowBookActivity" />
+        <activity android:name=".activity.UpdatePasswordActivity" />
     </application>
 
 </manifest>

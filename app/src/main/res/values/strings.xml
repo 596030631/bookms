@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">BookManagementSystem</string>
-    <string name="app_name_cn">图书管理系统</string>
+    <string name="app_name_cn">图书互换软件</string>
     <string name="label_copyright">Copyright © 2021–2022 BMS All rights reserved.</string>
 
     <string name="btn_text_reset">重置</string>
@@ -12,15 +12,15 @@
 
     <string name="tv_text_user_welcome">欢迎来到用户界面！</string>
     <string name="btn_text_find_book">查找图书</string>
-    <string name="btn_text_view_borrow_book">查看已借书籍</string>
-    <string name="btn_text_update_user_pwd">修改登录密码</string>
+    <string name="btn_text_view_borrow_book">借阅书籍</string>
+    <string name="btn_text_update_user_pwd">修改密码</string>
     <string name="btn_text_logout">退出登录</string>
 
-    <string name="tv_text_add_book_welcome">添加图书信息</string>
+    <string name="tv_text_add_book_welcome"></string>
     <string name="tv_text_book_id">图书编号</string>
     <string name="tv_text_book_name">图书名称</string>
     <string name="tv_text_book_number">图书数量</string>
-    <string name="btn_text_save_info">保存数据</string>
+    <string name="btn_text_save_info"></string>
     <string name="btn_text_cancel_add">取消添加</string>
 
     <string name="tv_text_add_user_welcome">添加用户信息</string>
@@ -33,15 +33,14 @@
     <string name="tv_text_admin_welcome">欢迎来到管理员界面！</string>
     <string name="btn_text_user_info">用户信息</string>
     <string name="btn_text_book_info">图书信息</string>
-    <string name="btn_text_book_borrow_info">图书借阅信息</string>
+    <string name="btn_text_book_borrow_info">图书互换信息</string>
     <string name="tv_text_book_manage_welcome">图书管理</string>
-    <string name="tv_text_user_manage_welcome">用户管理</string>
-    <string name="btn_text_add_book">添加书籍</string>
+    <string name="tv_text_user_manage_welcome"></string>
     <string name="btn_text_view_book">查看书籍</string>
     <string name="btn_text_return">返回</string>
     <string name="btn_text_add_user">添加用户</string>
     <string name="btn_text_view_user">查看用户</string>
-    <string name="tv_text_borrow_book_welcome">查看已借的书籍</string>
+    <string name="tv_text_borrow_book_welcome">借阅记录</string>
     <string name="tv_text_borrow_id">借书人学号</string>
     <string name="tv_text_borrow_book_id">图书编号</string>
     <string name="tv_text_borrow_book_name">图书名称</string>

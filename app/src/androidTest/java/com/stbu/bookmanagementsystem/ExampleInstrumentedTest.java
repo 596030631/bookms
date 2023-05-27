@@ -1,4 +1,4 @@
-package com.stbu.bookmanagementsystem;
+package com.stbu.bookms;
 
 import android.content.Context;
 
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
     public void useAppContext() {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
-        assertEquals("com.stbu.bookmanagementsystem", appContext.getPackageName());
+        assertEquals("com.stbu.bookms", appContext.getPackageName());
     }
 }

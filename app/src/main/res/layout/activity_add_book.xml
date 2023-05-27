@@ -1,8 +1,9 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/other_backgroup"
+    android:background="@drawable/other_background"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
@@ -10,27 +11,41 @@
     tools:context=".activity.AddBookActivity">
 
     <TextView
+        android:id="@+id/btn_back"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:padding="8dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="返回" />
+
+    <TextView
         android:id="@+id/tv_add_book_welcome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp"
-        android:text="@string/tv_text_add_book_welcome"
-        android:textSize="25sp" />
+        android:layout_marginTop="16dp"
+        android:text="添加图书信息"
+        android:textSize="25sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
         android:id="@+id/ll_add_book_middle_wrap"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
         android:layout_below="@+id/tv_add_book_welcome"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
-        android:orientation="vertical">
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_add_book_welcome">
 
-<!--        <ImageButton android:layout_width="192dp"-->
-<!--                     android:id="@+id/IBT_add_book_image"-->
-<!--                     android:layout_height="192dp"/>-->
+        <!--        <ImageButton android:layout_width="192dp"-->
+        <!--                     android:id="@+id/IBT_add_book_image"-->
+        <!--                     android:layout_height="192dp"/>-->
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -55,8 +70,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
             android:layout_marginTop="5dp"
+            android:gravity="center_horizontal"
             android:orientation="horizontal">
 
             <TextView
@@ -76,8 +91,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
             android:layout_marginTop="5dp"
+            android:gravity="center_horizontal"
             android:orientation="horizontal">
 
             <TextView
@@ -98,30 +113,22 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_below="@+id/ll_add_book_middle_wrap"
-        android:layout_width="match_parent"
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_save_info"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:layout_marginTop="30dp"
-        android:orientation="horizontal">
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="@color/white"
+        android:padding="4dp"
+        android:text="保存数据"
+        android:textColor="@color/black"
+        app:cornerRadius="4dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
-        <Button
-            android:id="@+id/btn_save_info"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="20dp"
-            android:layout_marginRight="20dp"
-            android:text="@string/btn_text_save_info" />
 
-        <Button
-            android:id="@+id/btn_cancel_add"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginLeft="20dp"
-            android:text="@string/btn_text_cancel_add" />
-
-    </LinearLayout>
-
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
