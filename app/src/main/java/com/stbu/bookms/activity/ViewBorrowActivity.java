@@ -19,7 +19,7 @@ import java.util.ArrayList;
 
 /**
  * @className ViewBorrowActivity
- * @description TODO 查看借阅信息的活动
+ * @description TODO 查看互换信息的活动
  * @version 1.0
  */
 public class ViewBorrowActivity extends AppCompatActivity {
@@ -50,7 +50,7 @@ public class ViewBorrowActivity extends AppCompatActivity {
             userId = borrow.getBorrowId();
             bookId = borrow.getBorrowBookId();
             AlertDialog.Builder builder = new AlertDialog.Builder(ViewBorrowActivity.this);
-            builder.setTitle("是否删除该借阅记录？");
+            builder.setTitle("是否删除该互换记录？");
             // 确认
             builder.setPositiveButton("确认", (dialog, whichButton) -> {
                 bookDao = new BookDao(ViewBorrowActivity.this);
@@ -59,7 +59,7 @@ public class ViewBorrowActivity extends AppCompatActivity {
                 // 更新图书信息
                 bookDao.updateBorrowBookInfo(tempBook);
                 Borrow tempBorrow = new Borrow(userId, bookId);
-                // 删除借阅信息
+                // 删除互换信息
                 borrowDao.deleteBorrowBookInfo(tempBorrow);
                 onStart();
             });

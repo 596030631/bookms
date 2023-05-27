@@ -24,7 +24,7 @@ import java.util.ArrayList;
 
 /**
  * @Classname BorrowBookActivity
- * @Description TODO 查看已借阅图书信息的活动
+ * @Description TODO 查看已互换图书信息的活动
  * Version 1.0
  */
 public class BorrowBookActivity extends AppCompatActivity {
@@ -77,7 +77,7 @@ public class BorrowBookActivity extends AppCompatActivity {
                 bookDao = new BookDao(BorrowBookActivity.this);
                 // 获取待还书籍数量
                 Book tempBook = bookDao.returnBookNumberChange(book_id);
-                // 更新图书借阅信息
+                // 更新图书互换信息
                 bookDao.updateBorrowBookInfo(tempBook);
                 Borrow tempBorrow = new Borrow(user.getId(), book_id);
                 // 删除借书信息

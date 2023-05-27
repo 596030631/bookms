@@ -11,6 +11,11 @@
     tools:context=".activity.UserActivity"
     tools:viewBindingIgnore="false">
 
+
+    <!--    用户界面：充值，修改用户信息，添加图书，查找图书，互换信息，交流（类似留言），促销，退出登录8个模块。-->
+
+    <!--    充值：用户点击充值跳转到充值按钮，输入充值金额，成功后修改账户的金额信息。-->
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -18,9 +23,8 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/tv_user_welcome"
@@ -28,70 +32,99 @@
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_gravity="center"
-                android:layout_marginTop="50dp"
                 android:text="@string/tv_text_user_welcome"
-                android:textSize="25sp" />
+                android:textSize="24sp" />
 
-            <FrameLayout
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/btn_exit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:text="退出"
+                android:textSize="24sp" />
+        </LinearLayout>
+
+        <!--        <LinearLayout-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="0dp"-->
+        <!--            android:layout_weight="1"-->
+        <!--            android:orientation="vertical">-->
+
+
+        <TextView
+            android:id="@+id/tv_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="金额:0.00"
+            android:textSize="20sp" />
+
+
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="230dip"
+            android:layout_marginTop="20dp">
+
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/viewpager"
                 android:layout_width="match_parent"
-                android:layout_height="230dip"
-                android:layout_marginTop="20dp">
+                android:layout_height="match_parent" />
 
-                <androidx.viewpager.widget.ViewPager
-                    android:id="@+id/viewpager"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="35dip"
+                android:layout_gravity="bottom"
+                android:background="#33000000"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:textColor="@android:color/white" />
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="35dip"
-                    android:layout_gravity="bottom"
-                    android:background="#33000000"
-                    android:gravity="center"
-                    android:orientation="vertical">
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dip"
+                    android:orientation="horizontal">
 
-                    <TextView
-                        android:id="@+id/title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text=""
-                        android:textColor="@android:color/white" />
+                    <View
+                        android:id="@+id/dot_0"
+                        android:layout_width="5dip"
+                        android:layout_height="5dip"
+                        android:layout_marginLeft="2dip"
+                        android:layout_marginRight="2dip"
+                        android:background="@drawable/book" />
 
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="3dip"
-                        android:orientation="horizontal">
+                    <View
+                        android:id="@+id/dot_1"
+                        android:layout_width="5dip"
+                        android:layout_height="5dip"
+                        android:layout_marginLeft="2dip"
+                        android:layout_marginRight="2dip"
+                        android:background="@drawable/icon" />
 
-                        <View
-                            android:id="@+id/dot_0"
-                            android:layout_width="5dip"
-                            android:layout_height="5dip"
-                            android:layout_marginLeft="2dip"
-                            android:layout_marginRight="2dip"
-                            android:background="@drawable/book" />
-
-                        <View
-                            android:id="@+id/dot_1"
-                            android:layout_width="5dip"
-                            android:layout_height="5dip"
-                            android:layout_marginLeft="2dip"
-                            android:layout_marginRight="2dip"
-                            android:background="@drawable/icon" />
-
-                        <View
-                            android:id="@+id/dot_2"
-                            android:layout_width="5dip"
-                            android:layout_height="5dip"
-                            android:layout_marginLeft="2dip"
-                            android:layout_marginRight="2dip"
-                            android:background="@drawable/icon" />
-                    </LinearLayout>
+                    <View
+                        android:id="@+id/dot_2"
+                        android:layout_width="5dip"
+                        android:layout_height="5dip"
+                        android:layout_marginLeft="2dip"
+                        android:layout_marginRight="2dip"
+                        android:background="@drawable/icon" />
                 </LinearLayout>
-            </FrameLayout>
+            </LinearLayout>
+        </FrameLayout>
 
 
-        </LinearLayout>
+        <!--        </LinearLayout>-->
 
         <ScrollView
             android:layout_width="match_parent"
@@ -124,19 +157,19 @@
                         android:textSize="20sp"
                         app:cornerRadius="32dp" />
 
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/btn_view_borrow_book"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_below="@+id/btn_find_book"
-                        android:layout_margin="16dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_weight="1"
-                        android:backgroundTint="@color/white"
-                        android:text="@string/btn_text_view_borrow_book"
-                        android:textColor="@color/black"
-                        android:textSize="20sp"
-                        app:cornerRadius="32dp" />
+<!--                    <com.google.android.material.button.MaterialButton-->
+<!--                        android:id="@+id/btn_view_borrow_book"-->
+<!--                        android:layout_width="0dp"-->
+<!--                        android:layout_height="match_parent"-->
+<!--                        android:layout_below="@+id/btn_find_book"-->
+<!--                        android:layout_margin="16dp"-->
+<!--                        android:layout_marginTop="10dp"-->
+<!--                        android:layout_weight="1"-->
+<!--                        android:backgroundTint="@color/white"-->
+<!--                        android:text="@string/btn_text_view_borrow_book"-->
+<!--                        android:textColor="@color/black"-->
+<!--                        android:textSize="20sp"-->
+<!--                        app:cornerRadius="32dp" />-->
                 </LinearLayout>
 
                 <LinearLayout
@@ -154,13 +187,13 @@
                         android:layout_marginTop="10dp"
                         android:layout_weight="1"
                         android:backgroundTint="@color/white"
-                        android:text="@string/btn_text_update_user_pwd"
+                        android:text="个人信息"
                         android:textColor="@color/black"
                         android:textSize="20sp"
                         app:cornerRadius="32dp" />
 
                     <com.google.android.material.button.MaterialButton
-                        android:id="@+id/btn_logout"
+                        android:id="@+id/btn_exchange"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_below="@+id/btn_update_user_pwd"
@@ -168,50 +201,85 @@
                         android:layout_marginTop="10dp"
                         android:layout_weight="1"
                         android:backgroundTint="@color/white"
-                        android:text="@string/btn_text_logout"
+                        android:text="互换信息"
                         android:textColor="@color/black"
                         android:textSize="20sp"
                         app:cornerRadius="32dp" />
-                </LinearLayout> <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:orientation="horizontal">
+                </LinearLayout>
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btn_exchange"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_below="@+id/btn_view_borrow_book"
-                    android:layout_margin="16dp"
-                    android:layout_marginTop="10dp"
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
                     android:layout_weight="1"
-                    android:backgroundTint="@color/white"
-                    android:text="留言"
-                    android:textColor="@color/black"
-                    android:textSize="20sp"
-                    app:cornerRadius="32dp" />
+                    android:orientation="horizontal">
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btn_lo"
-                    android:layout_width="0dp"
-                    android:visibility="gone"
-                    android:layout_height="match_parent"
-                    android:layout_below="@+id/btn_update_user_pwd"
-                    android:layout_margin="16dp"
-                    android:layout_marginTop="10dp"
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btn_chat"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_below="@+id/btn_view_borrow_book"
+                        android:layout_margin="16dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_weight="1"
+                        android:backgroundTint="@color/white"
+                        android:text="留言"
+                        android:textColor="@color/black"
+                        android:textSize="20sp"
+                        app:cornerRadius="32dp" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btn_pay"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_below="@+id/btn_update_user_pwd"
+                        android:layout_margin="16dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_weight="1"
+                        android:backgroundTint="@color/white"
+                        android:text="充值"
+                        android:textColor="@color/black"
+                        android:textSize="20sp"
+                        app:cornerRadius="32dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
                     android:layout_weight="1"
-                    android:backgroundTint="@color/white"
-                    android:text="@string/btn_text_logout"
-                    android:textColor="@color/black"
-                    android:textSize="20sp"
-                    app:cornerRadius="32dp" />
-            </LinearLayout>
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btn_sale"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_below="@+id/btn_view_borrow_book"
+                        android:layout_margin="16dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_weight="1"
+                        android:backgroundTint="@color/white"
+                        android:text="促销"
+                        android:textColor="@color/black"
+                        android:textSize="20sp"
+                        app:cornerRadius="32dp" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btn_add_book"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_below="@+id/btn_update_user_pwd"
+                        android:layout_margin="16dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_weight="1"
+                        android:backgroundTint="@color/white"
+                        android:text="添加书籍"
+                        android:textColor="@color/black"
+                        android:textSize="20sp"
+                        app:cornerRadius="32dp" />
+                </LinearLayout>
             </LinearLayout>
 
 
         </ScrollView>
-
 
 
     </LinearLayout>

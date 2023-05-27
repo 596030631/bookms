@@ -10,6 +10,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BookManagementSystem">
         <activity
+            android:name=".activity.ShopActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.ChangeActivity"
+            android:exported="false" />
+        <activity
             android:name=".activity.FriendsActivity"
             android:exported="false" />
         <activity

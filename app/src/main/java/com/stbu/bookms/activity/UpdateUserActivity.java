@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.content.Intent;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.stbu.bookms.R;
@@ -17,7 +18,8 @@ import com.stbu.bookms.util.db.UserDao;
  */
 public class UpdateUserActivity extends BaseActivity {
     private EditText et_id, et_name, et_class_name, et_pwd, et_phone_number;
-    private Button btn_save, btn_cancel;
+    private Button btn_save;
+    private TextView btn_cancel;
     private User user;
 
     @Override
@@ -58,8 +60,6 @@ public class UpdateUserActivity extends BaseActivity {
 
         // 取消更新
         btn_cancel.setOnClickListener(v -> {
-            Intent intent = new Intent(UpdateUserActivity.this, ViewUserActivity.class);
-            startActivity(intent);
             finish();
         });
     }
@@ -80,6 +80,6 @@ public class UpdateUserActivity extends BaseActivity {
         et_pwd = findViewById(R.id.et_pwd);
         et_phone_number = findViewById(R.id.et_phone_number);
         btn_save = findViewById(R.id.btn_save);
-        btn_cancel = findViewById(R.id.btn_cancel);
+        btn_cancel = findViewById(R.id.btn_back);
     }
 }

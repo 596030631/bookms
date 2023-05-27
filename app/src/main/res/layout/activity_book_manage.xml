@@ -64,6 +64,19 @@
         android:text="查看书籍"
         android:textSize="20sp" />
 
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_update_book"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_view_book"
+        android:layout_width="match_parent"
+        android:backgroundTint="@color/white"
+        android:textColor="@color/black"
+        app:cornerRadius="4dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="修改书籍"
+        android:textSize="20sp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

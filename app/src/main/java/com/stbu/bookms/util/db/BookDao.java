@@ -36,6 +36,18 @@ public class BookDao {
             values.put("book_id", book.getBookId());
             values.put("book_name", book.getBookName());
             values.put("book_number", book.getBookNumber());
+            values.put("book_auth", book.getBookAuth());
+            values.put("book_category", book.getBookCategory());
+            values.put("book_content", book.getBookContent());
+            values.put("book_price", book.getPrice());
+
+            //                temp.setBookAuth(cursor.getString(cursor.getColumnIndex("")));
+            //                temp.setBookCategory(cursor.getString(cursor.getColumnIndex("")));
+            //                temp.setBookContent(cursor.getString(cursor.getColumnIndex("")));
+            //                temp.setPrice(cursor.getString(cursor.getColumnIndex("")));
+            //                temp.setBookNumber(cursor.getInt(cursor.getColumnIndex("book_number")));
+
+
             int rows = (int) db.insert(
                     "bookInfo",
                     null,
@@ -132,8 +144,60 @@ public class BookDao {
             data = new ArrayList<>();
             while (cursor.moveToNext()) {
                 Book temp = new Book();
+                //   "book_id varchar(30)PRIMARY KEY," +
+                //                        " varchar(30)," +
+                //                        " varchar(30)," +
+                //                        " varchar(90)," +
+                //                        " varchar(30)," +
+                //                        " int" +
                 temp.setBookId(cursor.getString(cursor.getColumnIndex("book_id")));
                 temp.setBookName(cursor.getString(cursor.getColumnIndex("book_name")));
+                temp.setBookAuth(cursor.getString(cursor.getColumnIndex("book_auth")));
+                temp.setBookCategory(cursor.getString(cursor.getColumnIndex("book_category")));
+                temp.setBookContent(cursor.getString(cursor.getColumnIndex("book_content")));
+                temp.setPrice(cursor.getString(cursor.getColumnIndex("book_price")));
+                temp.setBookNumber(cursor.getInt(cursor.getColumnIndex("book_number")));
+                data.add(temp);
+            }
+            cursor.close();
+            db.close();
+        }
+        return data;
+    }
+ /**
+     * 查看所有图书信息
+     *
+     * @return 将数据库中所有的图书信息装入ArrayList返回。如果没有图书信息，则返回一个没有任何数据的ArrayList
+     */
+    public ArrayList<Book> showTop10BookInfo() {
+        ArrayList<Book> data = null;
+        SQLiteDatabase db = DBManager.getSqliteReadableDatabase(context);
+        if (db.isOpen()) {
+            Cursor cursor = db.query(
+                    "bookInfo",
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    "book_price",
+                    "10"
+            );
+            data = new ArrayList<>();
+            while (cursor.moveToNext()) {
+                Book temp = new Book();
+                //   "book_id varchar(30)PRIMARY KEY," +
+                //                        " varchar(30)," +
+                //                        " varchar(30)," +
+                //                        " varchar(90)," +
+                //                        " varchar(30)," +
+                //                        " int" +
+                temp.setBookId(cursor.getString(cursor.getColumnIndex("book_id")));
+                temp.setBookName(cursor.getString(cursor.getColumnIndex("book_name")));
+                temp.setBookAuth(cursor.getString(cursor.getColumnIndex("book_auth")));
+                temp.setBookCategory(cursor.getString(cursor.getColumnIndex("book_category")));
+                temp.setBookContent(cursor.getString(cursor.getColumnIndex("book_content")));
+                temp.setPrice(cursor.getString(cursor.getColumnIndex("book_price")));
                 temp.setBookNumber(cursor.getInt(cursor.getColumnIndex("book_number")));
                 data.add(temp);
             }
@@ -277,7 +341,7 @@ public class BookDao {
     }
 
     /**
-     * 更新借阅后的图书信息
+     * 更新互换后的图书信息
      *
      * @param book 图书
      */
@@ -295,12 +359,12 @@ public class BookDao {
                     new String[]{book.getBookId()}
             );
             if (rows == 0) {
-                Log.d("更新图书借阅信息操作", "更新图书借阅信息失败！");
+                Log.d("更新图书互换信息操作", "更新图书互换信息失败！");
             } else {
-                Log.d("更新图书借阅信息操作", "更新图书借阅信息成功！");
+                Log.d("更新图书互换信息操作", "更新图书互换信息成功！");
             }
         } else {
-            Log.d("更新图书借阅信息操作", "数据库打开失败！");
+            Log.d("更新图书互换信息操作", "数据库打开失败！");
         }
     }
 }

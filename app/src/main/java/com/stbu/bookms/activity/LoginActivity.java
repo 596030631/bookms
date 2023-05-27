@@ -99,6 +99,7 @@ public class LoginActivity extends BaseActivity {
                         finish();
                     } else {
                         Log.d("tag", "gg");
+                        Toast.makeText(getApplicationContext(), "用户名不存在", Toast.LENGTH_SHORT).show();
                     }
                 } else {
                     Toast.makeText(getApplicationContext(), "用户名或密码错误", Toast.LENGTH_SHORT).show();

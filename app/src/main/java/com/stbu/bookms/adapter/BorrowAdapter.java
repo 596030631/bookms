@@ -14,7 +14,7 @@ import java.util.ArrayList;
 
 /**
  * @Classname BorrowAdapter
- * @Description TODO 借阅信息类适配器
+ * @Description TODO 互换信息类适配器
  * Version 1.0
  */
 public class BorrowAdapter extends BaseAdapter {

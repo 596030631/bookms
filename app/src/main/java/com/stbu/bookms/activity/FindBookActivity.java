@@ -61,10 +61,10 @@ public class FindBookActivity extends AppCompatActivity {
             bookName = book.getBookName();
             bookNumber = book.getBookNumber();
             if (bookNumber <= 0) {
-                Toast.makeText(getApplicationContext(), "该图书余量:0，不可借阅", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "该图书余量:0，不可互换", Toast.LENGTH_SHORT).show();
             } else {
                 boolean flag = false;
-                // 查看某学号用户的全部借阅信息
+                // 查看某学号用户的全部互换信息
                 List<Borrow> borrows = borrowDao.showAllBorrowBookForUser(userId);
                 for (int i = 0; i < borrows.size(); i++) {
                     if ((borrows.get(i).getBorrowBookId()).equals(bookId)) {
@@ -72,19 +72,19 @@ public class FindBookActivity extends AppCompatActivity {
                     }
                 }
                 if (flag) {
-                    Toast.makeText(getApplicationContext(), "你已借阅，不可重复借阅", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "你已互换，不可重复互换", Toast.LENGTH_SHORT).show();
                 } else {
                     AlertDialog.Builder builder = new AlertDialog.Builder(FindBookActivity.this);
-                    builder.setTitle("确认借阅？");
+                    builder.setTitle("确认互换？");
                     builder.setPositiveButton("确认", (dialog, whichButton) -> {
                         Book tempBook = bookDao.borrowBookNumberChange(bookId);
-                        // 更新图书借阅信息
+                        // 更新图书互换信息
                         bookDao.updateBorrowBookInfo(tempBook);
                         Borrow borrow = new Borrow(userId, bookId, bookName);
                         // 增加借书信息
                         borrowDao.addBorrowBookInfo(borrow);
                         bookDao = new BookDao(FindBookActivity.this);
-                        Toast.makeText(getApplicationContext(), "借阅成功", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "互换成功", Toast.LENGTH_SHORT).show();
                         onStart();
                     });
                     builder.setNegativeButton("取消", (dialog, whichButton) -> dialog.dismiss());

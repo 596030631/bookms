@@ -38,12 +38,18 @@ public class AdminActivity extends BaseActivity {
             startActivity(intent);
         });
 
+        // 促销信息  促销：对于图书进行统计，对价格最低的前十的图书进行罗列，并显示图书名称和图书价格。
+        binding.btnShop.setOnClickListener(view -> {
+            Intent intent = new Intent(AdminActivity.this, ShopActivity.class);
+            startActivity(intent);
+        });
+
         // 图书信息
         binding.btnBookInfo.setOnClickListener(v -> {
             Intent intent = new Intent(AdminActivity.this, ManageBookActivity.class);
             startActivity(intent);
         });
-        // 图书借阅信息
+        // 图书互换信息
         binding.btnBookBorrowInfo.setOnClickListener(v -> {
             Intent intent = new Intent(AdminActivity.this, ViewBorrowActivity.class);
             startActivity(intent);

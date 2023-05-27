@@ -9,8 +9,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AlertDialog;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
@@ -18,8 +19,11 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.stbu.bookms.R;
 import com.stbu.bookms.databinding.ActivityUserBinding;
+import com.stbu.bookms.databinding.DialogPayBinding;
 import com.stbu.bookms.entity.User;
+import com.stbu.bookms.util.db.UserDao;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executors;
@@ -50,6 +54,8 @@ public class UserActivity extends BaseActivity {
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
     private com.stbu.bookms.databinding.ActivityUserBinding binding;
+
+    private final UserDao userDao = new UserDao(this);
 
 
     @Override
@@ -185,6 +191,7 @@ public class UserActivity extends BaseActivity {
         user = getUserAccount();
         String welcome = "欢迎你，" + user.getName();
         binding.tvUserWelcome.setText(welcome);
+        binding.tvAmount.setText("金额:" + user.getAmount());
     }
 
     private void initView() {
@@ -194,7 +201,49 @@ public class UserActivity extends BaseActivity {
     @SuppressLint("CommitPrefEdits")
     private void initEvent() {
 
+        binding.btnExit.setOnClickListener(view -> {
+            sharedPreferences = getSharedPreferences("userInfo", 0);
+            editor = sharedPreferences.edit();
+            editor.clear();
+            editor.commit();
+            Intent intent = new Intent(UserActivity.this, LoginActivity.class);
+            startActivity(intent);
+            finish();
+        });
+
+        binding.btnPay.setOnClickListener(view -> {
+            DialogPayBinding dialogPayBinding = DialogPayBinding.inflate(getLayoutInflater());
+            AlertDialog dialog = new AlertDialog.Builder(UserActivity.this)
+                    .setView(dialogPayBinding.getRoot())
+                    .create();
+            dialog.show();
+
+            dialogPayBinding.payButton.setOnClickListener(view1 -> {
+                dialog.dismiss();
+
+                BigDecimal decimal = new BigDecimal(user.getAmount());
+                decimal = decimal.add(new BigDecimal(dialogPayBinding.etAmount.getText().toString()));
+
+                user.setAmount(decimal.toString());
+                binding.tvAmount.setText("金额:" + user.getAmount());
+                userDao.updateUserInfo(user);
+                Toast.makeText(UserActivity.this, "修改成功", Toast.LENGTH_SHORT).show();
+
+            });
+
+            dialogPayBinding.cancelButton.setOnClickListener(view12 -> {
+                dialog.dismiss();
+            });
+        });
+
+        // 图书交换
         binding.btnExchange.setOnClickListener(view -> {
+            Intent intent = new Intent(UserActivity.this, ChangeActivity.class);
+            startActivity(intent);
+        });
+
+        // 留言交流
+        binding.btnChat.setOnClickListener(view -> {
             Intent intent = new Intent(UserActivity.this, FriendsActivity.class);
             startActivity(intent);
         });
@@ -210,15 +259,15 @@ public class UserActivity extends BaseActivity {
         });
 
         // 查看已借书籍
-        binding.btnViewBorrowBook.setOnClickListener(v -> {
-            Intent intent = new Intent();
-            Bundle bundle = new Bundle();
-            bundle.putString("id", user.getId());
-            intent.putExtras(bundle);
-            intent.setClass(getApplicationContext(), BorrowBookActivity.class);
-            startActivity(intent);
-            finish();
-        });
+//        binding.btnViewBorrowBook.setOnClickListener(v -> {
+//            Intent intent = new Intent();
+//            Bundle bundle = new Bundle();
+//            bundle.putString("id", user.getId());
+//            intent.putExtras(bundle);
+//            intent.setClass(getApplicationContext(), BorrowBookActivity.class);
+//            startActivity(intent);
+//            finish();
+//        });
 
         // 修改用户密码
         binding.btnUpdateUserPwd.setOnClickListener(v -> {
@@ -231,16 +280,13 @@ public class UserActivity extends BaseActivity {
             startActivity(intent);
             finish();
         });
-        // 退出登录
-        binding.btnLogout.setOnClickListener(v -> {
-            sharedPreferences = getSharedPreferences("userInfo", 0);
-            editor = sharedPreferences.edit();
-            editor.clear();
-            editor.commit();
-            Intent intent = new Intent(UserActivity.this, LoginActivity.class);
+
+        // 添加书籍
+        binding.btnAddBook.setOnClickListener(view -> {
+            Intent intent = new Intent(UserActivity.this, AddBookActivity.class);
             startActivity(intent);
-            finish();
         });
+
     }
 
     private User getUserAccount() {

@@ -3,6 +3,11 @@ package com.stbu.bookms.activity;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.view.TextureView;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 
 import com.stbu.bookms.adapter.BookAdapter;
 import com.stbu.bookms.databinding.ActivityViewBookBinding;
@@ -23,7 +28,11 @@ public class ViewBookActivity extends BaseActivity {
     private BookAdapter bookAdapter;
     private com.stbu.bookms.databinding.ActivityViewBookBinding binding;
 
+    private static final String[] items = {"经济投资", "人文社科", "教育培训", "少儿图书", "文学小说", "学习用书",
+            "IT科技", "成功励志", "热门考试", "生活知识"};
 
+
+    private String category = items[0];
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +47,59 @@ public class ViewBookActivity extends BaseActivity {
     }
 
     private void initEvent() {
+
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
+        binding.spinner.setAdapter(adapter);
+
+        binding.spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                category = items[i];
+                ArrayList<Book> books = bookDao.showBookInfo();
+                ArrayList<Book> ddddd = new ArrayList<>();
+                for (int j = 0; j < books.size(); j++) {
+                    if (TextUtils.equals(category, books.get(j).getBookCategory())) {
+                        ddddd.add(books.get(j));
+                    }
+                }
+                BookAdapter bookAdapter = new BookAdapter(ViewBookActivity.this, ddddd);
+                binding.lvFindBook.setAdapter(bookAdapter);
+
+                binding.lvFindBook.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                        Book book = (Book) adapterView.getItemAtPosition(i);
+                        AlertDialog.Builder builder = new AlertDialog.Builder(ViewBookActivity.this);
+                        builder.setTitle("请选择操作？");
+                        // 修改
+                        builder.setPositiveButton("修改", (dialog, whichButton) -> {
+                            Intent intent = new Intent();
+                            Bundle bundle = new Bundle();
+                            bundle.putSerializable("book", book);
+                            intent.setClass(ViewBookActivity.this, UpdateBookActivity.class);
+                            intent.putExtras(bundle);
+                            startActivity(intent);
+                            finish();
+                        });
+                        // 删除
+                        builder.setNegativeButton("删除", (dialog, whichButton) -> {
+                            // 删除图书信息
+                            bookDao.deleteBookInfo(book);
+                            onStart();
+                        });
+                        builder.show();
+                    }
+                });
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+
         // 返回
         binding.btnBack.setOnClickListener(v -> {
             finish();

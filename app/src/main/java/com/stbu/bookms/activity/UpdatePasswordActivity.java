@@ -1,33 +1,33 @@
 package com.stbu.bookms.activity;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.content.Intent;
-import android.widget.Button;
-import android.widget.EditText;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.stbu.bookms.R;
+import com.stbu.bookms.databinding.ActivityUpdatePasswordBinding;
 import com.stbu.bookms.entity.User;
 import com.stbu.bookms.util.db.UserDao;
+
 /**
+ * @version 1.0
  * @className UpdatePasswordActivity
  * @description TODO 更新密码的活动的搞
- * @version 1.0
  */
 public class UpdatePasswordActivity extends AppCompatActivity {
-    private EditText et_user_id, et_new_pwd, et_confirm_pwd;
-    private Button btn_save, btn_cancel;
     private User user;
+    private com.stbu.bookms.databinding.ActivityUpdatePasswordBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_update_password);
+        binding = ActivityUpdatePasswordBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
         initView();
         initData();
@@ -36,9 +36,9 @@ public class UpdatePasswordActivity extends AppCompatActivity {
 
     private void initEvent() {
         // 保存
-        btn_save.setOnClickListener(v -> {
-            String newPassword = et_new_pwd.getEditableText().toString().trim();
-            String confirmPassword = et_confirm_pwd.getEditableText().toString().trim();
+        binding.btnSave.setOnClickListener(v -> {
+            String newPassword = binding.etNewPwd.getEditableText().toString().trim();
+            String confirmPassword = binding.etConfirmPwd.getEditableText().toString().trim();
             System.out.println(newPassword);
             System.out.println(confirmPassword);
 
@@ -50,7 +50,7 @@ public class UpdatePasswordActivity extends AppCompatActivity {
                 Toast.makeText(UpdatePasswordActivity.this, "两次密码不一致", Toast.LENGTH_SHORT).show();
                 return;
             } else {
-                String password = et_new_pwd.getText().toString();
+                String password = binding.etNewPwd.getText().toString();
                 String id = user.getId();
                 User user = new User();
                 user.setId(id);
@@ -58,6 +58,15 @@ public class UpdatePasswordActivity extends AppCompatActivity {
                 // 通过id查询用户信息
                 User tempUser = userDao.findUserById(user);
                 tempUser.setPassword(password);
+
+                if (binding.etAddress.getText() != null) {
+                    tempUser.setAddress(binding.etAddress.getText().toString());
+                }
+                if (binding.etTel.getText() != null) {
+                    tempUser.setPhoneNumber(binding.etTel.getText().toString());
+                }
+
+
                 // 更新用户信息
                 userDao.updateUserInfo(tempUser);
                 Toast.makeText(UpdatePasswordActivity.this, "更新密码成功", Toast.LENGTH_SHORT).show();
@@ -68,7 +77,7 @@ public class UpdatePasswordActivity extends AppCompatActivity {
         });
 
         // 取消修改
-        btn_cancel.setOnClickListener(v -> {
+        binding.btnCancel.setOnClickListener(v -> {
             Intent intent = new Intent(UpdatePasswordActivity.this, UserActivity.class);
             startActivity(intent);
             finish();
@@ -77,16 +86,16 @@ public class UpdatePasswordActivity extends AppCompatActivity {
 
     private void initData() {
         user = getUserAccount();
-        et_user_id.setText(user.getId());
-        et_user_id.setEnabled(false);
+        binding.etUserId.setText(user.getId());
+        binding.etUserId.setEnabled(false);
+        binding.tvAmount.setEnabled(false);
+        binding.tvAmount.setText(user.getAmount());
+        binding.etAddress.setText(user.getAddress());
+        binding.etTel.setText(user.getPhoneNumber());
     }
 
     private void initView() {
-        et_user_id = findViewById(R.id.et_user_id);
-        et_new_pwd = findViewById(R.id.et_new_pwd);
-        et_confirm_pwd = findViewById(R.id.et_confirm_pwd);
-        btn_save = findViewById(R.id.btn_save);
-        btn_cancel = findViewById(R.id.btn_cancel);
+
     }
 
     /**
@@ -102,6 +111,11 @@ public class UpdatePasswordActivity extends AppCompatActivity {
         Gson gson = new Gson();
         User user = gson.fromJson(strJson, new TypeToken<User>() {
         }.getType());
+
+        UserDao userDao = new UserDao(this);
+        User vvv = userDao.findId(user);
+        Log.d("tag", "查询到的用户信息为:"+vvv);
+        if (vvv != null) return vvv;
         return user;
     }
 }

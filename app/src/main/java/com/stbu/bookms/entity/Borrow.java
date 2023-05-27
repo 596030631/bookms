@@ -2,13 +2,13 @@ package com.stbu.bookms.entity;
 
 /**
  * @className Borrow
- * @description TODO 借阅信息实体类
+ * @description TODO 互换信息实体类
  * @version 1.0
  */
 public class Borrow {
-    private String borrowId; // 借阅用户id
-    private String borrowBookId; // 借阅图书id
-    private String borrowBookName; // 借阅图书数量
+    private String borrowId; // 互换用户id
+    private String borrowBookId; // 互换图书id
+    private String borrowBookName; // 互换图书数量
 
     public Borrow() {
 

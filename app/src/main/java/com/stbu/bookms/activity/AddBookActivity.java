@@ -2,7 +2,10 @@ package com.stbu.bookms.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
 import com.stbu.bookms.databinding.ActivityAddBookBinding;
@@ -17,6 +20,11 @@ import com.stbu.bookms.util.db.BookDao;
 public class AddBookActivity extends BaseActivity {
 
     private com.stbu.bookms.databinding.ActivityAddBookBinding binding;
+    private static final String[] items = {"经济投资", "人文社科", "教育培训", "少儿图书", "文学小说", "学习用书",
+            "IT科技", "成功励志", "热门考试", "生活知识"};
+
+
+    private String category = items[0];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +38,22 @@ public class AddBookActivity extends BaseActivity {
         initEvent();
 
         binding.btnBack.setOnClickListener(view -> finish());
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
+        binding.spinner.setAdapter(adapter);
+
+        binding.spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                category = items[i];
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
     }
 
     private void initEvent() {
@@ -38,6 +62,16 @@ public class AddBookActivity extends BaseActivity {
             String tempBookId = binding.etBookId.getText().toString();
             String tempBookName = binding.etBookName.getText().toString();
             String str_tempBookNumber = binding.etBookNumber.getText().toString();
+
+            Editable auth = binding.etBookAuth.getText();
+            Editable content = binding.etBookRemark.getText();
+            Editable price = binding.etBookPrice.getText();
+
+            if (auth == null || content == null || price == null) {
+                Toast.makeText(this, "请录入完整", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
             int tempBookNumber;
             try {
                 tempBookNumber = Integer.parseInt(str_tempBookNumber);
@@ -47,9 +81,13 @@ public class AddBookActivity extends BaseActivity {
             }
 
             Book book = new Book(tempBookId, tempBookName, tempBookNumber);
+            book.setBookCategory(category);
+            book.setBookContent(content.toString());
+            book.setPrice(price.toString());
+
             BookDao bookDao = new BookDao(AddBookActivity.this);
 
-            if (tempBookId.length() == 0 || tempBookName.length() == 0 || str_tempBookNumber.length() == 0) {
+            if (auth == null || tempBookId.length() == 0 || tempBookName.length() == 0 || str_tempBookNumber.length() == 0) {
                 Toast.makeText(AddBookActivity.this, "图书信息未填写正确或完整！", Toast.LENGTH_SHORT).show();
             } else {
                 if (bookDao.checkBookExist(book)) {

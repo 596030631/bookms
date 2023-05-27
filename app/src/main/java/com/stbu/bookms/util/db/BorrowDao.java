@@ -13,7 +13,7 @@ import java.util.ArrayList;
 /**
  * @version 1.0
  * @className BorrowDao
- * @description TODO 执行与借阅相关的数据库操作
+ * @description TODO 执行与互换相关的数据库操作
  */
 public class BorrowDao {
     private Context context;
@@ -23,16 +23,16 @@ public class BorrowDao {
     }
 
     /**
-     * 借阅的情况分析:
-     * 管理员而言，可以删除用户的借阅情况，可以查看借阅情况。
+     * 互换的情况分析:
+     * 管理员而言，可以删除用户的互换情况，可以查看互换情况。
      * 用户而言，可以借书和还书，这就需要增加，删除，查看
      * 所以，这里只设增加，删除，查看，不实现修改。
      */
 
     /**
-     * 增加借阅信息
+     * 增加互换信息
      *
-     * @param borrow 借阅
+     * @param borrow 互换
      */
     public void addBorrowBookInfo(Borrow borrow) {
         SQLiteDatabase db = DBManager.getSqliteWritableDatabase(context);
@@ -58,9 +58,9 @@ public class BorrowDao {
     }
 
     /**
-     * 删除借阅信息
+     * 删除互换信息
      *
-     * @param borrow 借阅
+     * @param borrow 互换
      */
     public void deleteBorrowBookInfo(Borrow borrow) {
         SQLiteDatabase db = DBManager.getSqliteWritableDatabase(context);
@@ -82,9 +82,9 @@ public class BorrowDao {
     }
 
     /**
-     * 管理员查看所有人借阅情况
+     * 管理员查看所有人互换情况
      *
-     * @return 将数据库中所有人的借阅信息装入ArrayList返回。如果没有借阅信息，则返回一个没有任何数据的ArrayList
+     * @return 将数据库中所有人的互换信息装入ArrayList返回。如果没有互换信息，则返回一个没有任何数据的ArrayList
      */
     public ArrayList<Borrow> showBorrowBookInfo() {
         ArrayList<Borrow> data = null;
@@ -115,9 +115,9 @@ public class BorrowDao {
     }
 
     /**
-     * 用户查看自己借阅情况
+     * 用户查看自己互换情况
      *
-     * @return 将数据库中该用户的借阅信息装入ArrayList返回。如果没有借阅信息，则返回一个没有任何数据的ArrayList
+     * @return 将数据库中该用户的互换信息装入ArrayList返回。如果没有互换信息，则返回一个没有任何数据的ArrayList
      */
     public ArrayList<Borrow> showAllBorrowBookForUser(String borrowId) {
         ArrayList<Borrow> data = null;

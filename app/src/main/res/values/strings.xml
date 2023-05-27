@@ -12,7 +12,7 @@
 
     <string name="tv_text_user_welcome">欢迎来到用户界面！</string>
     <string name="btn_text_find_book">查找图书</string>
-    <string name="btn_text_view_borrow_book">借阅书籍</string>
+    <string name="btn_text_view_borrow_book">互换书籍</string>
     <string name="btn_text_update_user_pwd">修改密码</string>
     <string name="btn_text_logout">退出登录</string>
 
@@ -40,7 +40,7 @@
     <string name="btn_text_return">返回</string>
     <string name="btn_text_add_user">添加用户</string>
     <string name="btn_text_view_user">查看用户</string>
-    <string name="tv_text_borrow_book_welcome">借阅记录</string>
+    <string name="tv_text_borrow_book_welcome">互换记录</string>
     <string name="tv_text_borrow_id">借书人学号</string>
     <string name="tv_text_borrow_book_id">图书编号</string>
     <string name="tv_text_borrow_book_name">图书名称</string>
@@ -51,7 +51,7 @@
     <string name="btn_text_cancel_update">取消更新</string>
     <string name="tv_text_view_book_welcome">图书信息</string>
     <string name="tv_text_view_user_welcome">用户信息</string>
-    <string name="tv_text_view_borrow_welcome">借阅信息</string>
+    <string name="tv_text_view_borrow_welcome">互换信息</string>
     <string name="tv_text_update_user_welcome">更新用户信息</string>
     <string name="btn_text_save_update">保存更新</string>
     <string name="tv_text_update_pwd_welcome">修改密码</string>

@@ -108,18 +108,18 @@
             <!--            互换信息，促销，交流-->
 
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_exchange"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:backgroundTint="#fff"
-                android:paddingVertical="8dp"
-                android:text="互换信息"
-                android:textColor="@color/black"
-                android:textSize="26sp"
-                android:textStyle="bold"
-                app:cornerRadius="4dp" />
+<!--            <com.google.android.material.button.MaterialButton-->
+<!--                android:id="@+id/btn_exchange"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="16dp"-->
+<!--                android:backgroundTint="#fff"-->
+<!--                android:paddingVertical="8dp"-->
+<!--                android:text="互换信息"-->
+<!--                android:textColor="@color/black"-->
+<!--                android:textSize="26sp"-->
+<!--                android:textStyle="bold"-->
+<!--                app:cornerRadius="4dp" />-->
 
 
             <com.google.android.material.button.MaterialButton
@@ -129,7 +129,7 @@
                 android:layout_marginTop="16dp"
                 android:backgroundTint="#fff"
                 android:paddingVertical="8dp"
-                android:text="促销"
+                android:text="促销（管理员）"
                 android:textColor="@color/black"
                 android:textSize="26sp"
                 android:textStyle="bold"

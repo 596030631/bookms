@@ -33,7 +33,7 @@ public class UserDao {
             ContentValues values = new ContentValues();
             values.put("id", user.getId());
             values.put("name", user.getName());
-            values.put("class_name", user.getAddress());
+            values.put("address", user.getAddress());
             values.put("password", user.getPassword());
             values.put("phone_number", user.getPhoneNumber());
             values.put("amount", user.getAmount());
@@ -88,7 +88,7 @@ public class UserDao {
             ContentValues values = new ContentValues();
             values.put("id", user.getId());
             values.put("name", user.getName());
-            values.put("class_name", user.getAddress());
+            values.put("address", user.getAddress());
             values.put("password", user.getPassword());
             values.put("phone_number", user.getPhoneNumber());
             values.put("amount", user.getAmount());
@@ -131,7 +131,7 @@ public class UserDao {
                 User temp = new User();
                 temp.setId(cursor.getString(cursor.getColumnIndex("id")));
                 temp.setName(cursor.getString(cursor.getColumnIndex("name")));
-                temp.setAddress(cursor.getString(cursor.getColumnIndex("class_name")));
+                temp.setAddress(cursor.getString(cursor.getColumnIndex("address")));
                 temp.setPassword(cursor.getString(cursor.getColumnIndex("password")));
                 temp.setPhoneNumber(cursor.getString(cursor.getColumnIndex("phone_number")));
                 temp.setAmount(cursor.getString(cursor.getColumnIndex("amount")));
@@ -186,6 +186,11 @@ public class UserDao {
             tempUser = new User();
             while (cursor.moveToNext()) {
                 tempUser.setId(cursor.getString(cursor.getColumnIndex("id")));
+                tempUser.setName(cursor.getString(cursor.getColumnIndex("name")));
+                tempUser.setAddress(cursor.getString(cursor.getColumnIndex("address")));
+                tempUser.setPhoneNumber(cursor.getString(cursor.getColumnIndex("phone_number")));
+                tempUser.setAmount(cursor.getString(cursor.getColumnIndex("amount")));
+
             }
             cursor.close();
             db.close();
@@ -214,7 +219,7 @@ public class UserDao {
                 tempUser = new User();
                 tempUser.setId(cursor.getString(cursor.getColumnIndex("id")));
                 tempUser.setName(cursor.getString(cursor.getColumnIndex("name")));
-                tempUser.setAddress(cursor.getString(cursor.getColumnIndex("class_name")));
+                tempUser.setAddress(cursor.getString(cursor.getColumnIndex("address")));
                 tempUser.setPassword(cursor.getString(cursor.getColumnIndex("password")));
                 tempUser.setPhoneNumber(cursor.getString(cursor.getColumnIndex("phone_number")));
                 tempUser.setAmount(cursor.getString(cursor.getColumnIndex("amount")));
@@ -247,7 +252,7 @@ public class UserDao {
                 tempUser = new User();
                 tempUser.setId(cursor.getString(cursor.getColumnIndex("id")));
                 tempUser.setName(cursor.getString(cursor.getColumnIndex("name")));
-                tempUser.setAddress(cursor.getString(cursor.getColumnIndex("class_name")));
+                tempUser.setAddress(cursor.getString(cursor.getColumnIndex("address")));
                 tempUser.setPassword(cursor.getString(cursor.getColumnIndex("password")));
                 tempUser.setPhoneNumber(cursor.getString(cursor.getColumnIndex("phone_number")));
                 tempUser.setAmount(cursor.getString(cursor.getColumnIndex("amount")));
