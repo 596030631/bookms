@@ -72,6 +72,14 @@ public class UserActivity extends BaseActivity {
         initEvent();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        User fff = userDao.findUserById(user);
+        if (fff != null) {
+           binding.tvAmount.setText("金额:"+ fff.getAmount());
+        }
+    }
 
     //UI界面的更新
     private void setView() {

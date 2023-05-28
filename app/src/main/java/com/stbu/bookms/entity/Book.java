@@ -11,7 +11,8 @@ import java.io.Serializable;
 public class Book implements Serializable {
     private String bookId; // 图书编号
     private String bookName; // 图书名称
-    private String bookAuth; // 图书作者
+    private String image; // 图书名称
+    private String bookAuth; // 图书所有者
     private String bookCategory; // 图书类别
     private String bookContent; // 图书介绍
     private int bookNumber; // 图书数量
@@ -19,6 +20,14 @@ public class Book implements Serializable {
 
     public Book() {
 
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public String getBookAuth() {

@@ -32,10 +32,10 @@ public class ManageBookActivity extends BaseActivity {
             startActivity(intent);
         });
 
-        // 修改图书信息
-        binding.btnUpdateBook.setOnClickListener(v -> {
-            Toast.makeText(this, "请在查看列表里修改", Toast.LENGTH_SHORT).show();
-        });
+//        // 修改图书信息
+//        binding.btnUpdateBook.setOnClickListener(v -> {
+//            Toast.makeText(this, "请在查看列表里修改", Toast.LENGTH_SHORT).show();
+//        });
 
         // 查看图书信息
         binding.btnViewBook.setOnClickListener(v -> {

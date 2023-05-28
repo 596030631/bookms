@@ -50,7 +50,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         // 创建图书信息表
         //   private String bookId; // 图书编号
         //    private String bookName; // 图书名称
-        //    private String bookAuth; // 图书作者
+        //    private String bookAuth; // 图书左右着
         //    private String bookCategory; // 图书类别
         //    private String bookContent; // 图书介绍
         //    private int bookNumber; // 图书数量
@@ -58,6 +58,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         String bookInfo =
                 "CREATE TABLE IF NOT EXISTS bookInfo(" +
                         "book_id varchar(30)PRIMARY KEY," +
+                        "image varchar(90)," +
                         "book_name varchar(30)," +
                         "book_auth varchar(30)," +
                         "book_category varchar(30)," +
@@ -66,9 +67,22 @@ public class DataBaseHelper extends SQLiteOpenHelper {
                         "book_number int" +
                         ")";
         // 创建互换信息表
+
+        //  "buyer varchar(30)," +
+        //                        "sale_name varchar(30)," +
+        //                        "address varchar(30)," +
+        //                        "price varchar(30)," +
+        //                        "book varchar(30)" +
+
         String borrowInfo =
                 "CREATE TABLE IF NOT EXISTS borrowInfo(" +
                         "borrow_id varchar(30)," +
+                        "buyer varchar(30)," +
+                        "sale_name varchar(30)," +
+                        "price varchar(30)," +
+                        "datetime varchar(30)," +
+                        "address varchar(30)," +
+                        "remake varchar(120)," +
                         "borrow_book_id varchar(30)," +
                         "borrow_book_name varchar(30)" +
                         ")";
@@ -81,21 +95,13 @@ public class DataBaseHelper extends SQLiteOpenHelper {
                         "message varchar(30)," +
                         "time varchar(30)" +
                         ")";
-        // 创建用户交流
-        String changeInfo =
-                "CREATE TABLE IF NOT EXISTS changeInfo(" +
-                        "buyer varchar(30)," +
-                        "sale_name varchar(30)," +
-                        "address varchar(30)," +
-                        "price varchar(30)," +
-                        "book varchar(30)" +
-                        ")";
+
 
         db.execSQL(userInfo);
         db.execSQL(borrowInfo);
         db.execSQL(bookInfo);
         db.execSQL(exchangeInfo);
-        db.execSQL(changeInfo);
+//        db.execSQL(changeInfo);
     }
 
     @Override

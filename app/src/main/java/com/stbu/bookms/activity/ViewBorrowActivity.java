@@ -26,7 +26,7 @@ public class ViewBorrowActivity extends AppCompatActivity {
     private ListView lv_view_borrow;
     private Button btn_return;
     private String userId, bookId;
-    private BorrowDao borrowDao = new BorrowDao(ViewBorrowActivity.this);
+    private final BorrowDao borrowDao = new BorrowDao(ViewBorrowActivity.this);
     private BookDao bookDao = new BookDao(ViewBorrowActivity.this);
 
     @Override

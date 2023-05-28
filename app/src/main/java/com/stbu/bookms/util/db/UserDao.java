@@ -108,6 +108,33 @@ public class UserDao {
             Log.d("更新用户信息操作", "数据库打开失败");
         }
     }
+/**
+     * 更新用户信息
+     *
+     * @param user 用户
+     */
+    public void updateUserAmount(User user) {
+        SQLiteDatabase db = DBManager.getSqliteWritableDatabase(context);
+        if (db.isOpen()) {
+            ContentValues values = new ContentValues();
+            values.put("id", user.getId());
+            values.put("amount", user.getAmount());
+            int rows = db.update(
+                    "userInfo",
+                    values,
+                    "id = ?",
+                    new String[]{user.getId()}
+            );
+            if (rows == 0) {
+                Log.d("更新用户操作", "更新用户失败");
+            } else {
+                Log.d("更新用户操作", "更新用户成功");
+            }
+            db.close();
+        } else {
+            Log.d("更新用户信息操作", "数据库打开失败");
+        }
+    }
 
     /**
      * 查看所有用户信息

@@ -51,7 +51,7 @@ public class AdminActivity extends BaseActivity {
         });
         // 图书互换信息
         binding.btnBookBorrowInfo.setOnClickListener(v -> {
-            Intent intent = new Intent(AdminActivity.this, ViewBorrowActivity.class);
+            Intent intent = new Intent(AdminActivity.this, ChangeActivity.class);
             startActivity(intent);
         });
 

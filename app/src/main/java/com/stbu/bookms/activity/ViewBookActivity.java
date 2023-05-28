@@ -4,10 +4,11 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.view.TextureView;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.stbu.bookms.adapter.BookAdapter;
 import com.stbu.bookms.databinding.ActivityViewBookBinding;
@@ -33,6 +34,7 @@ public class ViewBookActivity extends BaseActivity {
 
 
     private String category = items[0];
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,34 +65,10 @@ public class ViewBookActivity extends BaseActivity {
                         ddddd.add(books.get(j));
                     }
                 }
-                BookAdapter bookAdapter = new BookAdapter(ViewBookActivity.this, ddddd);
-                binding.lvFindBook.setAdapter(bookAdapter);
+                bookAdapter = new BookAdapter(ViewBookActivity.this, ddddd);
+                binding.recyclerview.setAdapter(bookAdapter);
+                addClick();
 
-                binding.lvFindBook.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                        Book book = (Book) adapterView.getItemAtPosition(i);
-                        AlertDialog.Builder builder = new AlertDialog.Builder(ViewBookActivity.this);
-                        builder.setTitle("请选择操作？");
-                        // 修改
-                        builder.setPositiveButton("修改", (dialog, whichButton) -> {
-                            Intent intent = new Intent();
-                            Bundle bundle = new Bundle();
-                            bundle.putSerializable("book", book);
-                            intent.setClass(ViewBookActivity.this, UpdateBookActivity.class);
-                            intent.putExtras(bundle);
-                            startActivity(intent);
-                            finish();
-                        });
-                        // 删除
-                        builder.setNegativeButton("删除", (dialog, whichButton) -> {
-                            // 删除图书信息
-                            bookDao.deleteBookInfo(book);
-                            onStart();
-                        });
-                        builder.show();
-                    }
-                });
             }
 
             @Override
@@ -109,7 +87,8 @@ public class ViewBookActivity extends BaseActivity {
             String temp = binding.etBookNameSearch.getText().toString().trim();
             ArrayList<Book> books = (ArrayList<Book>) bookDao.findBookByName(temp);
             bookAdapter = new BookAdapter(this, books);
-            binding.lvFindBook.setAdapter(bookAdapter);
+            binding.recyclerview.setAdapter(bookAdapter);
+            addClick();
         });
     }
 
@@ -121,11 +100,21 @@ public class ViewBookActivity extends BaseActivity {
     protected void onStart() {
         super.onStart();
         ArrayList<Book> books = bookDao.showBookInfo();
-        BookAdapter bookAdapter = new BookAdapter(ViewBookActivity.this, books);
-        binding.lvFindBook.setAdapter(bookAdapter);
+        bookAdapter = new BookAdapter(ViewBookActivity.this, books);
+        binding.recyclerview.setAdapter(bookAdapter);
+        binding.recyclerview.setLayoutManager(new LinearLayoutManager(this));
+
+
+        addClick();
+
+
+    }
+
+
+    private void addClick() {
         // 为每一项数据绑定事件
-        binding.lvFindBook.setOnItemClickListener((parent, view, position, id) -> {
-            Book book = (Book) parent.getItemAtPosition(position);
+        bookAdapter.setOnItemClickListenerOpt((position, book) -> {
+
             AlertDialog.Builder builder = new AlertDialog.Builder(ViewBookActivity.this);
             builder.setTitle("请选择操作？");
             // 修改
@@ -146,5 +135,7 @@ public class ViewBookActivity extends BaseActivity {
             });
             builder.show();
         });
+
+
     }
 }

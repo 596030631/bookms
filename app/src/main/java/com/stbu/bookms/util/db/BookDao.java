@@ -35,6 +35,7 @@ public class BookDao {
             ContentValues values = new ContentValues();
             values.put("book_id", book.getBookId());
             values.put("book_name", book.getBookName());
+            values.put("image", book.getImage());
             values.put("book_number", book.getBookNumber());
             values.put("book_auth", book.getBookAuth());
             values.put("book_category", book.getBookCategory());
@@ -152,6 +153,7 @@ public class BookDao {
                 //                        " int" +
                 temp.setBookId(cursor.getString(cursor.getColumnIndex("book_id")));
                 temp.setBookName(cursor.getString(cursor.getColumnIndex("book_name")));
+                temp.setImage(cursor.getString(cursor.getColumnIndex("image")));
                 temp.setBookAuth(cursor.getString(cursor.getColumnIndex("book_auth")));
                 temp.setBookCategory(cursor.getString(cursor.getColumnIndex("book_category")));
                 temp.setBookContent(cursor.getString(cursor.getColumnIndex("book_content")));
@@ -186,14 +188,17 @@ public class BookDao {
             data = new ArrayList<>();
             while (cursor.moveToNext()) {
                 Book temp = new Book();
-                //   "book_id varchar(30)PRIMARY KEY," +
-                //                        " varchar(30)," +
-                //                        " varchar(30)," +
-                //                        " varchar(90)," +
-                //                        " varchar(30)," +
-                //                        " int" +
+                //  "book_id varchar(30)PRIMARY KEY," +
+                //                        "image varchar(90)," +
+                //                        "book_name varchar(30)," +
+                //                        "book_auth varchar(30)," +
+                //                        "book_category varchar(30)," +
+                //                        "book_content varchar(90)," +
+                //                        "book_price varchar(30)," +
+                //                        "book_number int" +
                 temp.setBookId(cursor.getString(cursor.getColumnIndex("book_id")));
                 temp.setBookName(cursor.getString(cursor.getColumnIndex("book_name")));
+                temp.setImage(cursor.getString(cursor.getColumnIndex("image")));
                 temp.setBookAuth(cursor.getString(cursor.getColumnIndex("book_auth")));
                 temp.setBookCategory(cursor.getString(cursor.getColumnIndex("book_category")));
                 temp.setBookContent(cursor.getString(cursor.getColumnIndex("book_content")));
@@ -266,8 +271,21 @@ public class BookDao {
             Cursor csearch = db.rawQuery(sql, null);
             while (csearch.moveToNext()) {
                 Book tempBook = new Book();
+                //  "book_id varchar(30)PRIMARY KEY," +
+                //                        "image varchar(90)," +
+                //                        "book_name varchar(30)," +
+                //                        "book_auth varchar(30)," +
+                //                        "book_category varchar(30)," +
+                //                        "book_content varchar(90)," +
+                //                        "book_price varchar(30)," +
+                //                        "book_number int" +
                 tempBook.setBookId(csearch.getString(csearch.getColumnIndex("book_id")));
                 tempBook.setBookName(csearch.getString(csearch.getColumnIndex("book_name")));
+                tempBook.setImage(csearch.getString(csearch.getColumnIndex("image")));
+                tempBook.setBookAuth(csearch.getString(csearch.getColumnIndex("book_auth")));
+                tempBook.setBookCategory(csearch.getString(csearch.getColumnIndex("book_category")));
+                tempBook.setPrice(csearch.getString(csearch.getColumnIndex("book_price")));
+                tempBook.setBookContent(csearch.getString(csearch.getColumnIndex("book_content")));
                 tempBook.setBookNumber(csearch.getInt(csearch.getColumnIndex("book_number")));
                 bookList.add(tempBook);
             }
@@ -301,6 +319,7 @@ public class BookDao {
                 book = new Book();
                 book.setBookId(cursor.getString(cursor.getColumnIndex("book_id")));
                 book.setBookName(cursor.getString(cursor.getColumnIndex("book_name")));
+                book.setImage(cursor.getString(cursor.getColumnIndex("image")));
                 book.setBookNumber(cursor.getInt(cursor.getColumnIndex("book_number")) + 1);
             }
             cursor.close();
@@ -334,6 +353,7 @@ public class BookDao {
             if (cursor.moveToNext()) {
                 book.setBookId(cursor.getString(cursor.getColumnIndex("book_id")));
                 book.setBookName(cursor.getString(cursor.getColumnIndex("book_name")));
+                book.setImage(cursor.getString(cursor.getColumnIndex("image")));
                 book.setBookNumber(cursor.getInt(cursor.getColumnIndex("book_number")) - 1);
             }
         }

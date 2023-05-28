@@ -37,10 +37,26 @@ public class BorrowDao {
     public void addBorrowBookInfo(Borrow borrow) {
         SQLiteDatabase db = DBManager.getSqliteWritableDatabase(context);
         if (db.isOpen()) {
+            //  "borrow_id varchar(30)," +
+            //                        "buyer varchar(30)," +
+            //                        "sale_name varchar(30)," +
+            //                        "price varchar(30)," +
+            //                        "datetime varchar(30)," +
+            //                        "remake varchar(120)," +
+            //                        "borrow_book_id varchar(30)," +
+            //                        "borrow_book_name varchar(30)" +
             ContentValues values = new ContentValues();
             values.put("borrow_id", borrow.getBorrowId());
+            values.put("address", borrow.getAddress());
+            values.put("buyer", borrow.getBuyer_name());
+            values.put("sale_name", borrow.getSale_name());
+            values.put("price", borrow.getPrice());
+            values.put("datetime", borrow.getDatetime());
+            values.put("remake", borrow.getRemake());
             values.put("borrow_book_id", borrow.getBorrowBookId());
             values.put("borrow_book_name", borrow.getBorrowBookName());
+
+
             int rows = (int) db.insert(
                     "borrowInfo",
                     null,
@@ -104,6 +120,12 @@ public class BorrowDao {
             while (cursor.moveToNext()) {
                 Borrow temp = new Borrow();
                 temp.setBorrowId(cursor.getString(cursor.getColumnIndex("borrow_id")));
+                temp.setAddress(cursor.getString(cursor.getColumnIndex("address")));
+                temp.setSale_name(cursor.getString(cursor.getColumnIndex("sale_name")));
+                temp.setBuyer_name(cursor.getString(cursor.getColumnIndex("buyer")));
+                temp.setDatetime(cursor.getString(cursor.getColumnIndex("datetime")));
+                temp.setPrice(cursor.getString(cursor.getColumnIndex("price")));
+                temp.setRemake(cursor.getString(cursor.getColumnIndex("remake")));
                 temp.setBorrowBookId(cursor.getString(cursor.getColumnIndex("borrow_book_id")));
                 temp.setBorrowBookName(cursor.getString(cursor.getColumnIndex("borrow_book_name")));
                 data.add(temp);
