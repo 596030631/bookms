@@ -136,8 +136,7 @@ public class AddBookActivity extends BaseActivity {
             binding.spinnerBookAuth.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                    User iii = uuuuu.get(i);
-                    mUser = iii;
+                    mUser = uuuuu.get(i);
                 }
 
                 @Override
@@ -146,10 +145,10 @@ public class AddBookActivity extends BaseActivity {
                 }
             });
 
-            binding.etBookAuth.setVisibility(View.GONE);
+            binding.etBookOwn.setVisibility(View.GONE);
         } else {
             binding.spinnerBookAuth.setVisibility(View.GONE);
-            binding.etBookAuth.setVisibility(View.VISIBLE);
+            binding.etBookOwn.setVisibility(View.VISIBLE);
             binding.etBookOwn.setText(LOGIN_USER);
             mUser = new User(LOGIN_USER, "");
         }
