@@ -155,6 +155,7 @@ public class FindBookActivity extends BaseActivity {
             BookDao bookDao = new BookDao(FindBookActivity.this);
             // 更新图书信息
             user.setRemakeJson(gson.toJson(personList));
+            Log.d("tag","ccccc=" +user.toString());
             bookDao.updateBookInfo(user);
 
             for (int i = 0; i < datas.size(); i++) {
@@ -166,6 +167,9 @@ public class FindBookActivity extends BaseActivity {
 
             bookAdapter.notifyDataSetChanged();
         });
+
+
+
 
         bookAdapter.setOnItemClickListener(new OnItemClickListener<Book>() {
             @Override
@@ -237,7 +241,13 @@ public class FindBookActivity extends BaseActivity {
                             User user = new User(userId, "");
 
                             User userInfo = userDao.findUserById(user);
-                            if (userInfo == null) {
+
+
+                            User user2 = new User(bookInfo.getBookAuth(), "");
+                            user2 = userDao.findUserById(user2);
+
+
+                            if (userInfo == null || user2 == null) {
                                 Toast.makeText(FindBookActivity.this, "用户查找失败", Toast.LENGTH_SHORT).show();
                                 return;
                             }
@@ -260,6 +270,12 @@ public class FindBookActivity extends BaseActivity {
 
                             user.setAmount(bigDecimal.toString());
                             userDao.updateUserAmount(user);
+
+
+                            BigDecimal fff = new BigDecimal(user2.getAmount());
+                            fff = fff.add(new BigDecimal(bookInfo.getPrice()));
+                            user2.setAmount(fff.toString());
+                            userDao.updateUserAmount(user2);
 
                             // 更新图书互换信息
                             bookDao.updateBorrowBookInfo(tempBook);

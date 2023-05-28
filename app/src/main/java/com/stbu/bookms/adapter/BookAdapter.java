@@ -6,7 +6,6 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.text.Editable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,6 +35,7 @@ public class BookAdapter extends RecyclerView.Adapter<VH<BookItemBinding>> {
     private OnItemClickListener<Book> onItemClickListener;
     private OnItemClickListener<Book> onItemClickListenerOpt;
     private OnItemClickListener<Book> onItemClickListenerRemake;
+    private OnItemClickListener<Book> onItemClickListenerRemakeDel;
 
     public void setOnItemClickListener(OnItemClickListener<Book> onItemClickListener) {
         this.onItemClickListener = onItemClickListener;
@@ -43,6 +43,10 @@ public class BookAdapter extends RecyclerView.Adapter<VH<BookItemBinding>> {
 
     public void setOnItemClickListenerRemake(OnItemClickListener<Book> onItemClickListener) {
         this.onItemClickListenerRemake = onItemClickListener;
+    }
+
+    public void setOnItemClickListenerRemakeDel(OnItemClickListener<Book> onItemClickListener) {
+        this.onItemClickListenerRemakeDel = onItemClickListener;
     }
 
     public BookAdapter(Context context, List<Book> books) {
@@ -73,7 +77,7 @@ public class BookAdapter extends RecyclerView.Adapter<VH<BookItemBinding>> {
         }
 
         holder.binding.tvCategory.setText("类别:" + book.getBookCategory());
-        holder.binding.tvJianjie.setText("简介:" + book.getBookContent());
+        holder.binding.tvJianjie.setText("图书作者:" + book.getBookContent());
         holder.binding.tvAuth.setText("所有者:" + book.getBookAuth());
         holder.binding.tvBookIdShow.setText(book.getBookId());
         holder.binding.tvBookNameShow.setText(book.getBookName());
@@ -82,7 +86,7 @@ public class BookAdapter extends RecyclerView.Adapter<VH<BookItemBinding>> {
         }.getType(); // 使用 TypeToken 获取要解析的类型
         List<Book.BookRemake> personList = gson.fromJson(book.getRemakeJson(), type);
 
-        if (personList!=null){
+        if (personList != null) {
             StringBuilder sd = new StringBuilder();
             for (int i = 0; i < personList.size(); i++) {
                 sd.append(personList.get(i).userName).append(":").append(personList.get(i).remake).append('\n');
@@ -96,6 +100,13 @@ public class BookAdapter extends RecyclerView.Adapter<VH<BookItemBinding>> {
             holder.binding.btnChange.setOnClickListener(view -> onItemClickListener.click(position, book));
         } else {
             holder.binding.btnChange.setVisibility(View.GONE);
+        }
+
+        if (onItemClickListenerRemakeDel != null) {
+            holder.binding.btnDelRemake.setVisibility(View.VISIBLE);
+            holder.binding.btnDelRemake.setOnClickListener(view -> onItemClickListenerRemakeDel.click(position, book));
+        } else {
+            holder.binding.btnDelRemake.setVisibility(View.GONE);
         }
 
 
@@ -118,13 +129,12 @@ public class BookAdapter extends RecyclerView.Adapter<VH<BookItemBinding>> {
             } else {
 
 
-                holder.binding.btnRemake.setOnClickListener(view ->{
-                    Log.d("tag", "000000000000000000000");
+                holder.binding.btnRemake.setOnClickListener(view -> {
                     book.setAddRemake(editable.toString());
                     onItemClickListenerRemake.click(position, book);
                     holder.binding.etRemake.setText("");
                     Toast.makeText(context, "评论成功", Toast.LENGTH_SHORT).show();
-                } );
+                });
             }
         }
 

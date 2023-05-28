@@ -23,10 +23,14 @@ import androidx.core.app.ActivityCompat;
 import com.stbu.bookms.R;
 import com.stbu.bookms.databinding.ActivityAddBookBinding;
 import com.stbu.bookms.entity.Book;
+import com.stbu.bookms.entity.User;
 import com.stbu.bookms.util.db.BookDao;
+import com.stbu.bookms.util.db.UserDao;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @version 1.0
@@ -36,6 +40,7 @@ import java.io.InputStream;
 public class AddBookActivity extends BaseActivity {
 
     private static final int REQUEST_CODE = 11;
+    private User mUser; // 选择的用户图书所有者
     private com.stbu.bookms.databinding.ActivityAddBookBinding binding;
     private static final String[] items = {"经济投资", "人文社科", "教育培训", "少儿图书", "文学小说", "学习用书",
             "IT科技", "成功励志", "热门考试", "生活知识"};
@@ -71,42 +76,8 @@ public class AddBookActivity extends BaseActivity {
             }
         });
 
-
-        binding.etBookAuth.setText(LOGIN_USER);
-
     }
 
-//    private void saveImageToGallery(Bitmap bitmap, String fileName) {
-//        // 保存图片到 Pictures 文件夹
-//        String dirPath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/book/";
-//        File fileDir = new File(dirPath);
-//        if (!fileDir.exists()) {
-//            fileDir.mkdirs();
-//        }
-//        String filePath = dirPath + fileName;
-//        File file = new File(filePath);
-//        if (file.exists()) return;
-//        try {
-//            FileOutputStream outputStream = new FileOutputStream(file);
-//            bitmap.compress(Bitmap.CompressFormat.JPEG, 80, outputStream);
-//            outputStream.flush();
-//            outputStream.close();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-
-    // 保存图片到相册
-//        ContentValues values = new ContentValues();
-//        values.put(MediaStore.Images.Media.TITLE, fileName);
-//        values.put(MediaStore.Images.Media.DISPLAY_NAME, fileName);
-//        values.put(MediaStore.Images.Media.DESCRIPTION, "My Image Description");
-//        values.put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg");
-//        values.put(MediaStore.Images.Media.DATE_ADDED, System.currentTimeMillis());
-//        values.put(MediaStore.Images.Media.DATE_TAKEN, System.currentTimeMillis());
-//        values.put(MediaStore.Images.Media.DATA, filePath);
-//
-//        getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
-//    }
 
     private String image;
 
@@ -148,13 +119,48 @@ public class AddBookActivity extends BaseActivity {
             }
         });
 
+
+        if ("admin".equals(LOGIN_USER)) {
+            binding.spinnerBookAuth.setVisibility(View.VISIBLE);
+
+            UserDao userDao = new UserDao(this);
+            final List<User> uuuuu = userDao.showUserInfo();
+            List<String> ffff = new ArrayList<>();
+            for (int i = 0; i < uuuuu.size(); i++) {
+                ffff.add(uuuuu.get(i).getName());
+            }
+            ArrayAdapter<String> adapter2 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, ffff);
+
+            binding.spinnerBookAuth.setAdapter(adapter2);
+
+            binding.spinnerBookAuth.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                    User iii = uuuuu.get(i);
+                    mUser = iii;
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> adapterView) {
+
+                }
+            });
+
+            binding.etBookAuth.setVisibility(View.GONE);
+        } else {
+            binding.spinnerBookAuth.setVisibility(View.GONE);
+            binding.etBookAuth.setVisibility(View.VISIBLE);
+
+            mUser = new User(LOGIN_USER, "");
+        }
+
+
         // 保存数据
         binding.btnSaveInfo.setOnClickListener(v -> {
             String tempBookId = binding.etBookId.getText().toString();
             String tempBookName = binding.etBookName.getText().toString();
             String str_tempBookNumber = binding.etBookNumber.getText().toString();
 
-            Editable auth = binding.etBookAuth.getText();
             Editable content = binding.etBookRemark.getText();
             Editable price = binding.etBookPrice.getText();
 
@@ -165,7 +171,7 @@ public class AddBookActivity extends BaseActivity {
             String localImage = image;
             image = null;
 
-            if (auth == null || content == null || price == null) {
+            if (content == null || price == null) {
                 Toast.makeText(this, "请录入完整", Toast.LENGTH_SHORT).show();
                 return;
             }
@@ -182,7 +188,13 @@ public class AddBookActivity extends BaseActivity {
             book.setBookCategory(category);
             book.setBookContent(content.toString());
             book.setPrice(price.toString());
-            book.setBookAuth(LOGIN_USER);
+
+            if ("admin".equals(LOGIN_USER)) {
+                book.setBookAuth(mUser.getId());
+            } else {
+                book.setBookAuth(LOGIN_USER);
+            }
+
             book.setImage(localImage);
 
             BookDao bookDao = new BookDao(AddBookActivity.this);

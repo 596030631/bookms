@@ -1,9 +1,12 @@
 package com.stbu.bookms.activity;
 
+import static com.stbu.bookms.activity.ExchangeActivity.LOGIN_USER;
+
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -18,6 +21,7 @@ import com.stbu.bookms.util.db.BookDao;
 import com.stbu.bookms.util.db.BorrowDao;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @version 1.0
@@ -52,23 +56,23 @@ public class ViewBookActivity extends BaseActivity {
     private void initEvent() {
 
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
-        binding.spinner.setAdapter(adapter);
+        ArrayAdapter<String> adapterSpinner = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
+        binding.spinner.setAdapter(adapterSpinner);
 
         binding.spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 category = items[i];
                 ArrayList<Book> books = bookDao.showBookInfo();
-                ArrayList<Book> ddddd = new ArrayList<>();
+                datas.clear();
                 for (int j = 0; j < books.size(); j++) {
                     if (TextUtils.equals(category, books.get(j).getBookCategory())) {
-                        ddddd.add(books.get(j));
+                        datas.add(books.get(j));
                     }
                 }
-                bookAdapter = new BookAdapter(ViewBookActivity.this, ddddd);
-                binding.recyclerview.setAdapter(bookAdapter);
-                addClick();
+
+                bookAdapter.notifyDataSetChanged();
+
 
             }
 
@@ -85,11 +89,17 @@ public class ViewBookActivity extends BaseActivity {
         });
         //搜索
         binding.btnSearch.setOnClickListener(v -> {
+            Log.d("tag","ffffvvvvvvvvvvvvv");
             String temp = binding.etBookNameSearch.getText().toString().trim();
             ArrayList<Book> books = (ArrayList<Book>) bookDao.findBookByName(temp);
-            bookAdapter = new BookAdapter(this, books);
-            binding.recyclerview.setAdapter(bookAdapter);
-            addClick();
+            if (books != null && !books.isEmpty()) {
+                datas.clear();
+                datas.addAll(books);
+            }else {
+                datas.clear();
+            }
+            bookAdapter.notifyDataSetChanged();
+
         });
     }
 
@@ -101,7 +111,13 @@ public class ViewBookActivity extends BaseActivity {
     protected void onStart() {
         super.onStart();
         ArrayList<Book> books = bookDao.showBookInfo();
-        bookAdapter = new BookAdapter(ViewBookActivity.this, books);
+        if (books != null && !books.isEmpty()) {
+            datas.addAll(books);
+        }else {
+            datas.clear();
+        }
+
+        bookAdapter = new BookAdapter(ViewBookActivity.this, datas);
         binding.recyclerview.setAdapter(bookAdapter);
         binding.recyclerview.setLayoutManager(new LinearLayoutManager(this));
 
@@ -111,12 +127,31 @@ public class ViewBookActivity extends BaseActivity {
 
     }
 
+    private final List<Book> datas = new ArrayList<>();
+
 
     private void addClick() {
 
         bookAdapter.setOnItemClickListenerRemake((position, user) -> {
 
         });
+
+        if ("admin".equals(LOGIN_USER)) {
+            bookAdapter.setOnItemClickListenerRemakeDel((position, user) -> {
+                for (int i = 0; i < datas.size(); i++) {
+                    if (datas.get(i).getBookId().equals(user.getBookId())) {
+                        user.setRemakeJson("");
+                        datas.get(i).setRemakeJson("");
+                        bookDao.updateBookInfo(user);
+                        bookAdapter.notifyDataSetChanged();
+                        break;
+                    }
+                }
+
+            });
+        }
+
+
 
         // 为每一项数据绑定事件
         bookAdapter.setOnItemClickListenerOpt((position, book) -> {

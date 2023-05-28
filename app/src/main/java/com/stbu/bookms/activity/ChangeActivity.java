@@ -49,7 +49,7 @@ public class ChangeActivity extends AppCompatActivity {
             List<Borrow> list = changeDao.showBorrowBookInfo();
             if (list != null && !list.isEmpty()) {
                 for (int i = 0; i < list.size(); i++) {
-                    if ("admin".equals(LOGIN_USER) || LOGIN_USER.equals(list.get(i).getBuyer_name())) {
+                    if ("admin".equals(LOGIN_USER) || LOGIN_USER.equals(list.get(i).getBuyer_name()) || LOGIN_USER.equals(list.get(i).getSale_name())) {
                         data.add(list.get(i));
                     }
                 }

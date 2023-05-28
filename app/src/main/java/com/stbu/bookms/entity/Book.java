@@ -121,10 +121,14 @@ public class Book implements Serializable {
         return "Book{" +
                 "bookId='" + bookId + '\'' +
                 ", bookName='" + bookName + '\'' +
+                ", image='" + image + '\'' +
+                ", bookAuth='" + bookAuth + '\'' +
+                ", bookCategory='" + bookCategory + '\'' +
+                ", bookContent='" + bookContent + '\'' +
                 ", bookNumber=" + bookNumber +
+                ", price='" + price + '\'' +
+                ", remakeJson='" + remakeJson + '\'' +
+                ", addRemake='" + addRemake + '\'' +
                 '}';
     }
-
-
-
 }

@@ -106,6 +106,7 @@ public class BookDao {
             values.put("book_id", book.getBookId());
             values.put("book_name", book.getBookName());
             values.put("book_number", book.getBookNumber());
+            values.put("remake", book.getRemakeJson());
             int rows = db.update(
                     "bookInfo",
                     values,
@@ -159,6 +160,7 @@ public class BookDao {
                 temp.setBookContent(cursor.getString(cursor.getColumnIndex("book_content")));
                 temp.setPrice(cursor.getString(cursor.getColumnIndex("book_price")));
                 temp.setBookNumber(cursor.getInt(cursor.getColumnIndex("book_number")));
+                temp.setRemakeJson(cursor.getString(cursor.getColumnIndex("remake")));
                 data.add(temp);
             }
             cursor.close();

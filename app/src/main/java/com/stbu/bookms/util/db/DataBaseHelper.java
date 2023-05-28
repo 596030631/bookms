@@ -64,7 +64,8 @@ public class DataBaseHelper extends SQLiteOpenHelper {
                         "book_category varchar(30)," +
                         "book_content varchar(90)," +
                         "book_price varchar(30)," +
-                        "book_number int" +
+                        "book_number int," +
+                        "remake varchar(120)" +
                         ")";
         // 创建互换信息表
 

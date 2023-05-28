@@ -41,8 +41,8 @@ public class ChangeAdapter extends RecyclerView.Adapter<VH<ItemChangeBinding>> {
         Borrow info = data.get(position);
         holder.binding.name.setText("书名:" + info.getBorrowBookName());
         holder.binding.address.setText("地址:" + info.getAddress());
-        holder.binding.user.setText("买家:" + info.getBuyer_name());
-        holder.binding.sale.setText("卖家:" + info.getSale_name());
+        holder.binding.user.setText("图书交换人:" + info.getBuyer_name());
+        holder.binding.sale.setText("图书所有人:" + info.getSale_name());
         holder.binding.price.setText("价格:" + info.getPrice());
         holder.binding.datetime.setText("时间:" + info.getDatetime());
         holder.binding.remake.setText("评论:" + info.getRemake());

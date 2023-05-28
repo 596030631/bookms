@@ -58,7 +58,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="卖家:"
+            android:text="图书所有人:"
             android:textSize="20sp" />
 
         <EditText
@@ -67,7 +67,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:enabled="false"
-            android:hint="卖家" />
+            android:hint="图书所有人" />
     </LinearLayout>
 
 

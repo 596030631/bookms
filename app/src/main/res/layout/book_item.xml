@@ -3,7 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@drawable/shape_search"
     android:orientation="vertical"
+    android:padding="8dp"
     tools:viewBindingIgnore="false">
 
     <LinearLayout
@@ -81,7 +83,7 @@
             android:id="@+id/tv_jianjie"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="这是图书的简介" />
+            android:text="这是图书的作者" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -106,6 +108,15 @@
                 android:textColor="@color/black" />
 
             <Button
+                android:id="@+id/btn_del_remake"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:backgroundTint="@color/white"
+                android:text="删除评论"
+                android:textColor="@color/black" />
+
+            <Button
                 android:id="@+id/btn_remake"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -116,10 +127,10 @@
 
 
             <EditText
-                android:layout_gravity="center_vertical"
                 android:id="@+id/et_remake"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
                 android:hint="评论" />
 
 
@@ -128,7 +139,7 @@
         <TextView
             android:id="@+id/tv_remakkkk"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content" />
 
 
     </LinearLayout>
