@@ -17,7 +17,7 @@ import com.stbu.bookms.util.db.UserDao;
  * @version 1.0
  */
 public class UpdateUserActivity extends BaseActivity {
-    private EditText et_id, et_name, et_class_name, et_pwd, et_phone_number;
+    private EditText et_id, et_name, et_class_name, et_pwd, et_phone_number, et_amount;
     private Button btn_save;
     private TextView btn_cancel;
     private User user;
@@ -46,8 +46,9 @@ public class UpdateUserActivity extends BaseActivity {
                 String className = et_class_name.getText().toString();
                 String password = et_pwd.getText().toString();
                 String phoneNumber = et_phone_number.getText().toString();
+                String amount = et_amount.getText().toString();
 
-                User user = new User(id, name, className, password, phoneNumber, "0");
+                User user = new User(id, name, className, password, phoneNumber, amount);
                 UserDao userDao = new UserDao(UpdateUserActivity.this);
                 // 更新用户信息
                 userDao.updateUserInfo(user);
@@ -59,9 +60,7 @@ public class UpdateUserActivity extends BaseActivity {
         });
 
         // 取消更新
-        btn_cancel.setOnClickListener(v -> {
-            finish();
-        });
+        btn_cancel.setOnClickListener(v -> finish());
     }
 
     private void initData() {
@@ -71,6 +70,7 @@ public class UpdateUserActivity extends BaseActivity {
         et_class_name.setText(user.getAddress());
         et_pwd.setText(user.getPassword());
         et_phone_number.setText(user.getPhoneNumber());
+        et_amount.setText(user.getAmount());
     }
 
     private void initView() {
@@ -79,6 +79,7 @@ public class UpdateUserActivity extends BaseActivity {
         et_class_name = findViewById(R.id.et_address);
         et_pwd = findViewById(R.id.et_pwd);
         et_phone_number = findViewById(R.id.et_phone_number);
+        et_amount = findViewById(R.id.et_amount);
         btn_save = findViewById(R.id.btn_save);
         btn_cancel = findViewById(R.id.btn_back);
     }

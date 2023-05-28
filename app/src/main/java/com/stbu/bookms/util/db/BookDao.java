@@ -294,6 +294,43 @@ public class BookDao {
         }
         return bookList;
     }
+ /**
+     * 搜索图书功能
+     *
+     * @return 返回图书集
+     */
+    public List<Book> findBookByCategory(String category) {
+        SQLiteDatabase db = DBManager.getSqliteReadableDatabase(context);
+        ArrayList<Book> bookList = new ArrayList<Book>();
+
+        String sql = "SELECT * FROM bookInfo WHERE book_category LIKE '%" + category + "%'";
+        if (db.isOpen()) {
+            Cursor csearch = db.rawQuery(sql, null);
+            while (csearch.moveToNext()) {
+                Book tempBook = new Book();
+                //  "book_id varchar(30)PRIMARY KEY," +
+                //                        "image varchar(90)," +
+                //                        "book_name varchar(30)," +
+                //                        "book_auth varchar(30)," +
+                //                        "book_category varchar(30)," +
+                //                        "book_content varchar(90)," +
+                //                        "book_price varchar(30)," +
+                //                        "book_number int" +
+                tempBook.setBookId(csearch.getString(csearch.getColumnIndex("book_id")));
+                tempBook.setBookName(csearch.getString(csearch.getColumnIndex("book_name")));
+                tempBook.setImage(csearch.getString(csearch.getColumnIndex("image")));
+                tempBook.setBookAuth(csearch.getString(csearch.getColumnIndex("book_auth")));
+                tempBook.setBookCategory(csearch.getString(csearch.getColumnIndex("book_category")));
+                tempBook.setPrice(csearch.getString(csearch.getColumnIndex("book_price")));
+                tempBook.setBookContent(csearch.getString(csearch.getColumnIndex("book_content")));
+                tempBook.setBookNumber(csearch.getInt(csearch.getColumnIndex("book_number")));
+                bookList.add(tempBook);
+            }
+            csearch.close();
+            db.close();
+        }
+        return bookList;
+    }
 
 
     /**

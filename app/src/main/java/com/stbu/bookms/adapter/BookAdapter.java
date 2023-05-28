@@ -1,21 +1,28 @@
 package com.stbu.bookms.adapter;
 
+import static com.stbu.bookms.activity.ExchangeActivity.LOGIN_USER;
+
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.text.Editable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.stbu.bookms.databinding.BookItemBinding;
 import com.stbu.bookms.entity.Book;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.Type;
 import java.util.List;
 
 /**
@@ -28,14 +35,17 @@ public class BookAdapter extends RecyclerView.Adapter<VH<BookItemBinding>> {
     private Context context;
     private OnItemClickListener<Book> onItemClickListener;
     private OnItemClickListener<Book> onItemClickListenerOpt;
+    private OnItemClickListener<Book> onItemClickListenerRemake;
 
     public void setOnItemClickListener(OnItemClickListener<Book> onItemClickListener) {
-        Log.d("tag", "lllll");
         this.onItemClickListener = onItemClickListener;
     }
 
+    public void setOnItemClickListenerRemake(OnItemClickListener<Book> onItemClickListener) {
+        this.onItemClickListenerRemake = onItemClickListener;
+    }
+
     public BookAdapter(Context context, List<Book> books) {
-        Log.d("tag", "ttttttt");
         this.books = books;
         this.context = context;
     }
@@ -45,6 +55,8 @@ public class BookAdapter extends RecyclerView.Adapter<VH<BookItemBinding>> {
     public VH<BookItemBinding> onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new VH<>(BookItemBinding.inflate(LayoutInflater.from(context), parent, false));
     }
+
+    private Gson gson = new Gson();
 
     @Override
     public void onBindViewHolder(@NonNull VH<BookItemBinding> holder, int position) {
@@ -66,6 +78,18 @@ public class BookAdapter extends RecyclerView.Adapter<VH<BookItemBinding>> {
         holder.binding.tvBookIdShow.setText(book.getBookId());
         holder.binding.tvBookNameShow.setText(book.getBookName());
 
+        Type type = new TypeToken<List<Book.BookRemake>>() {
+        }.getType(); // 使用 TypeToken 获取要解析的类型
+        List<Book.BookRemake> personList = gson.fromJson(book.getRemakeJson(), type);
+
+        if (personList!=null){
+            StringBuilder sd = new StringBuilder();
+            for (int i = 0; i < personList.size(); i++) {
+                sd.append(personList.get(i).userName).append(":").append(personList.get(i).remake).append('\n');
+            }
+            holder.binding.tvRemakkkk.setText(sd.toString());
+
+        }
 
         if (onItemClickListener != null) {
             holder.binding.btnChange.setVisibility(View.VISIBLE);
@@ -82,6 +106,27 @@ public class BookAdapter extends RecyclerView.Adapter<VH<BookItemBinding>> {
             holder.binding.btnOpt.setOnClickListener(view -> onItemClickListenerOpt.click(position, book));
         }
 
+        if (onItemClickListenerRemake == null || "admin".equals(LOGIN_USER)) {
+            holder.binding.btnRemake.setVisibility(View.GONE);
+            holder.binding.etRemake.setVisibility(View.GONE);
+        } else {
+            holder.binding.btnRemake.setVisibility(View.VISIBLE);
+            holder.binding.etRemake.setVisibility(View.VISIBLE);
+            Editable editable = holder.binding.etRemake.getText();
+            if (editable == null) {
+                Toast.makeText(context, "请先填写评论", Toast.LENGTH_SHORT).show();
+            } else {
+
+
+                holder.binding.btnRemake.setOnClickListener(view ->{
+                    Log.d("tag", "000000000000000000000");
+                    book.setAddRemake(editable.toString());
+                    onItemClickListenerRemake.click(position, book);
+                    holder.binding.etRemake.setText("");
+                    Toast.makeText(context, "评论成功", Toast.LENGTH_SHORT).show();
+                } );
+            }
+        }
 
         holder.binding.tvBookBalanceShow.setText(String.valueOf(book.getBookNumber()));
 

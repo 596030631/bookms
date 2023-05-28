@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
-public class ShopActivity extends AppCompatActivity {
+public class ShopActivity extends BaseActivity {
 
     private final BookDao bookDao = new BookDao(this);
 

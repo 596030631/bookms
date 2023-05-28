@@ -24,7 +24,7 @@
     <string name="btn_text_cancel_add">取消添加</string>
 
     <string name="tv_text_add_user_welcome">添加用户信息</string>
-    <string name="tv_text_id">学号</string>
+    <string name="tv_text_id">账号</string>
     <string name="tv_text_name">姓名</string>
     <string name="tv_text_class_name">班级</string>
     <string name="tv_text_phone_number">手机</string>
@@ -41,7 +41,7 @@
     <string name="btn_text_add_user">添加用户</string>
     <string name="btn_text_view_user">查看用户</string>
     <string name="tv_text_borrow_book_welcome">互换记录</string>
-    <string name="tv_text_borrow_id">借书人学号</string>
+    <string name="tv_text_borrow_id">借书人账号</string>
     <string name="tv_text_borrow_book_id">图书编号</string>
     <string name="tv_text_borrow_book_name">图书名称</string>
     <string name="tv_text_user_id">我的账号</string>

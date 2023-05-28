@@ -52,7 +52,7 @@ public class AddUserActivity extends BaseActivity {
             } else {
                 // 查询用户是否存在
                 if (userDao.checkExist(user)) {
-                    Toast.makeText(AddUserActivity.this, "该学号已存在", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddUserActivity.this, "该账号已存在", Toast.LENGTH_SHORT).show();
                 } else {
                     // 添加用户信息
                     userDao.addUserInfo(user);

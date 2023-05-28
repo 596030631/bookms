@@ -18,6 +18,25 @@ public class Book implements Serializable {
     private int bookNumber; // 图书数量
     private String price = "0.00"; // 图书价格
 
+    private String remakeJson;
+
+    public String getRemakeJson() {
+        return remakeJson;
+    }
+
+    public void setRemakeJson(String remakeJson) {
+        this.remakeJson = remakeJson;
+    }
+    private String addRemake;
+
+    public String getAddRemake() {
+        return addRemake;
+    }
+
+    public void setAddRemake(String addRemake) {
+        this.addRemake = addRemake;
+    }
+
     public Book() {
 
     }
@@ -68,6 +87,11 @@ public class Book implements Serializable {
         this.bookNumber = bookNumber;
     }
 
+    public static class BookRemake {
+        public String userName;
+        public String remake;
+    }
+
     public String getBookId() {
         return bookId;
     }
@@ -100,4 +124,7 @@ public class Book implements Serializable {
                 ", bookNumber=" + bookNumber +
                 '}';
     }
+
+
+
 }

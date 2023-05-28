@@ -18,13 +18,23 @@
         android:textSize="22sp"
         android:textStyle="bold" />
 
+    <ImageView
+        android:layout_marginTop="8dp"
+        android:id="@+id/kkkk"
+        android:layout_below="@id/eeee"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_width="300dp"
+        android:layout_height="340dp"
+        android:src="@drawable/img_pay" />
+
     <LinearLayout
         android:id="@+id/layout_amount"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/eeee"
+        android:layout_below="@id/kkkk"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="64dp"
+        android:layout_marginTop="16dp"
         android:gravity="center_horizontal"
         android:orientation="horizontal">
 

@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.stbu.bookms.adapter.BookAdapter;
+import com.stbu.bookms.adapter.OnItemClickListener;
 import com.stbu.bookms.databinding.ActivityViewBookBinding;
 import com.stbu.bookms.entity.Book;
 import com.stbu.bookms.util.db.BookDao;
@@ -112,6 +113,11 @@ public class ViewBookActivity extends BaseActivity {
 
 
     private void addClick() {
+
+        bookAdapter.setOnItemClickListenerRemake((position, user) -> {
+
+        });
+
         // 为每一项数据绑定事件
         bookAdapter.setOnItemClickListenerOpt((position, book) -> {
 

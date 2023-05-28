@@ -126,9 +126,8 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerview"
             android:layout_width="match_parent"
-            android:layout_height="350dp"
+            android:layout_height="match_parent"
             tools:listitem="@layout/book_item"
-            android:layout_below="@id/ll_find_book_title"
             android:layout_marginTop="15dp" />
 
 

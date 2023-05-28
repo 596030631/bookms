@@ -8,11 +8,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.stbu.bookms.adapter.BookAdapter;
 import com.stbu.bookms.adapter.OnItemClickListener;
 import com.stbu.bookms.databinding.ActivityFindBookBinding;
@@ -24,6 +28,7 @@ import com.stbu.bookms.util.db.BookDao;
 import com.stbu.bookms.util.db.BorrowDao;
 import com.stbu.bookms.util.db.UserDao;
 
+import java.lang.reflect.Type;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -35,18 +40,22 @@ import java.util.Locale;
  * @className FindBookActivity
  * @description TODO 查找图书的活动
  */
-public class FindBookActivity extends AppCompatActivity {
+public class FindBookActivity extends BaseActivity {
     private String userId;
     private String bookId;
     private String bookName;
 
     private int bookNumber;
     private BookDao bookDao = new BookDao(FindBookActivity.this);
-    private BorrowDao borrowDao = new BorrowDao(FindBookActivity.this);
+    private final BorrowDao borrowDao = new BorrowDao(FindBookActivity.this);
     private BookAdapter bookAdapter;
 
-    private List<Book> datas = new ArrayList<>();
+    private final List<Book> datas = new ArrayList<>();
     private com.stbu.bookms.databinding.ActivityFindBookBinding binding;
+    private static final String[] items = {"经济投资", "人文社科", "教育培训", "少儿图书", "文学小说", "学习用书",
+            "IT科技", "成功励志", "热门考试", "生活知识"};
+
+    private String category = items[0];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +66,34 @@ public class FindBookActivity extends AppCompatActivity {
         Intent intent = getIntent();
         userId = intent.getStringExtra("id");
 
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
+        binding.spinner.setAdapter(adapter);
+
+        binding.spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @SuppressLint("NotifyDataSetChanged")
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                category = items[i];
+
+                String temp = binding.etBookNameSearch.getText().toString().trim();
+                List<Book> books = bookDao.findBookByName(temp);
+                datas.clear();
+
+                for (int j = 0; j < books.size(); j++) {
+                    if (category.equals(books.get(j).getBookCategory())) {
+                        datas.add(books.get(j));
+                    }
+                }
+
+                bookAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
         initView();
         ArrayList<Book> books = bookDao.showBookInfo();
         datas.addAll(books);
@@ -66,7 +103,6 @@ public class FindBookActivity extends AppCompatActivity {
 
 
     private void initEvent() {
-
 
         // 返回
         binding.btnReturn.setOnClickListener(view -> {
@@ -79,7 +115,13 @@ public class FindBookActivity extends AppCompatActivity {
             String temp = binding.etBookNameSearch.getText().toString().trim();
             List<Book> books = bookDao.findBookByName(temp);
             datas.clear();
-            datas.addAll(books);
+
+            for (int i = 0; i < books.size(); i++) {
+                if (category.equals(books.get(i).getBookCategory())) {
+                    datas.add(books.get(i));
+                }
+            }
+
             bookAdapter.notifyDataSetChanged();
         });
     }
@@ -95,6 +137,36 @@ public class FindBookActivity extends AppCompatActivity {
         binding.recyclerview.setAdapter(bookAdapter);
         binding.recyclerview.setLayoutManager(new LinearLayoutManager(this));
 
+        bookAdapter.setOnItemClickListenerRemake((position, user) -> {
+
+            Gson gson = new Gson();
+            Type type = new TypeToken<List<Book.BookRemake>>() {
+            }.getType(); // 使用 TypeToken 获取要解析的类型
+            List<Book.BookRemake> personList = gson.fromJson(user.getRemakeJson(), type);
+            Book.BookRemake bookRemake = new Book.BookRemake();
+            bookRemake.remake = user.getAddRemake();
+            bookRemake.userName = LOGIN_USER;
+
+            if (personList == null) {
+                personList = new ArrayList<>();
+            }
+
+            personList.add(bookRemake);
+            BookDao bookDao = new BookDao(FindBookActivity.this);
+            // 更新图书信息
+            user.setRemakeJson(gson.toJson(personList));
+            bookDao.updateBookInfo(user);
+
+            for (int i = 0; i < datas.size(); i++) {
+                if (datas.get(i).getBookId().equals(user.getBookId())) {
+                    datas.get(i).setAddRemake(user.getRemakeJson());
+                    break;
+                }
+            }
+
+            bookAdapter.notifyDataSetChanged();
+        });
+
         bookAdapter.setOnItemClickListener(new OnItemClickListener<Book>() {
             @Override
             public void click(int position, Book bookInfo) {
@@ -107,7 +179,7 @@ public class FindBookActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "该图书余量:0，不可互换", Toast.LENGTH_SHORT).show();
                 } else {
                     boolean flag = false;
-                    // 查看某学号用户的全部互换信息
+                    // 查看某账号用户的全部互换信息
                     List<Borrow> borrows = borrowDao.showAllBorrowBookForUser(userId);
                     for (int i = 0; i < borrows.size(); i++) {
                         if ((borrows.get(i).getBorrowBookId()).equals(bookId)) {

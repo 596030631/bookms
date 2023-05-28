@@ -102,6 +102,11 @@ public class UserActivity extends BaseActivity {
         adapter = new ViewPagerAdapter();
         binding.viewpager.setAdapter(adapter);
 
+        binding.btnSale.setOnClickListener(view -> {
+            Intent intent = new Intent(UserActivity.this, ShopActivity.class);
+            startActivity(intent);
+        });
+
         binding.viewpager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageSelected(int position) {
