@@ -25,7 +25,6 @@ import com.stbu.bookms.util.db.BorrowDao;
 import com.stbu.bookms.util.db.UserDao;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -165,16 +164,16 @@ public class FindBookActivity extends AppCompatActivity {
 
                             User user = new User(userId, "");
 
-                           User userInfo = userDao.findUserById(user);
-                           if (userInfo == null) {
-                               Toast.makeText(FindBookActivity.this, "用户查找失败", Toast.LENGTH_SHORT).show();
-                               return;
-                           }
+                            User userInfo = userDao.findUserById(user);
+                            if (userInfo == null) {
+                                Toast.makeText(FindBookActivity.this, "用户查找失败", Toast.LENGTH_SHORT).show();
+                                return;
+                            }
 
-                           if (LOGIN_USER.equals(bookInfo.getBookAuth())) {
-                               Toast.makeText(FindBookActivity.this, "自己的书不需要互换", Toast.LENGTH_SHORT).show();
-                               return;
-                           }
+                            if (LOGIN_USER.equals(bookInfo.getBookAuth())) {
+                                Toast.makeText(FindBookActivity.this, "自己的书不需要互换", Toast.LENGTH_SHORT).show();
+                                return;
+                            }
 
                             BigDecimal bigDecimal = new BigDecimal(userInfo.getAmount());
                             bigDecimal = bigDecimal.subtract(new BigDecimal(bookInfo.getPrice()));
@@ -183,8 +182,8 @@ public class FindBookActivity extends AppCompatActivity {
                                 return;
                             }
 
-                            Log.d("tag", "书价：="+bookInfo.getPrice().toString());
-                            Log.d("tag", "余额：="+bigDecimal.toString());
+                            Log.d("tag", "书价：=" + bookInfo.getPrice().toString());
+                            Log.d("tag", "余额：=" + bigDecimal.toString());
 
 
                             user.setAmount(bigDecimal.toString());
