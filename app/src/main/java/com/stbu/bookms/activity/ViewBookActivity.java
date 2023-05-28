@@ -112,6 +112,7 @@ public class ViewBookActivity extends BaseActivity {
         super.onStart();
         ArrayList<Book> books = bookDao.showBookInfo();
         if (books != null && !books.isEmpty()) {
+            datas.clear();
             datas.addAll(books);
         }else {
             datas.clear();
@@ -132,12 +133,13 @@ public class ViewBookActivity extends BaseActivity {
 
     private void addClick() {
 
-        bookAdapter.setOnItemClickListenerRemake((position, user) -> {
-
-        });
+//        bookAdapter.setOnItemClickListenerRemake((position, user) -> {
+//
+//        });
 
         if ("admin".equals(LOGIN_USER)) {
             bookAdapter.setOnItemClickListenerRemakeDel((position, user) -> {
+
                 for (int i = 0; i < datas.size(); i++) {
                     if (datas.get(i).getBookId().equals(user.getBookId())) {
                         user.setRemakeJson("");

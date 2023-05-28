@@ -148,6 +148,7 @@ public class FindBookActivity extends BaseActivity {
             bookRemake.userName = LOGIN_USER;
 
             if (personList == null) {
+                Log.d("ddd","dddddddddddddddddddddddddddddddddddddddddd");
                 personList = new ArrayList<>();
             }
 

@@ -150,7 +150,7 @@ public class AddBookActivity extends BaseActivity {
         } else {
             binding.spinnerBookAuth.setVisibility(View.GONE);
             binding.etBookAuth.setVisibility(View.VISIBLE);
-
+            binding.etBookOwn.setText(LOGIN_USER);
             mUser = new User(LOGIN_USER, "");
         }
 
@@ -161,7 +161,8 @@ public class AddBookActivity extends BaseActivity {
             String tempBookName = binding.etBookName.getText().toString();
             String str_tempBookNumber = binding.etBookNumber.getText().toString();
 
-            Editable content = binding.etBookRemark.getText();
+            Editable auth = binding.etBookAuth.getText();
+            Editable content = binding.etRemake.getText();
             Editable price = binding.etBookPrice.getText();
 
             if (image == null) {
@@ -171,7 +172,7 @@ public class AddBookActivity extends BaseActivity {
             String localImage = image;
             image = null;
 
-            if (content == null || price == null) {
+            if (auth == null || content == null || price == null) {
                 Toast.makeText(this, "请录入完整", Toast.LENGTH_SHORT).show();
                 return;
             }
@@ -186,13 +187,14 @@ public class AddBookActivity extends BaseActivity {
 
             Book book = new Book(tempBookId, tempBookName, tempBookNumber);
             book.setBookCategory(category);
+            book.setBookAuth(auth.toString());
             book.setBookContent(content.toString());
             book.setPrice(price.toString());
 
             if ("admin".equals(LOGIN_USER)) {
-                book.setBookAuth(mUser.getId());
+                book.setBookOwn(mUser.getId());
             } else {
-                book.setBookAuth(LOGIN_USER);
+                book.setBookOwn(LOGIN_USER);
             }
 
             book.setImage(localImage);

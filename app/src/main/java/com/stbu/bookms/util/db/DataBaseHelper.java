@@ -60,6 +60,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
                         "book_id varchar(30)PRIMARY KEY," +
                         "image varchar(90)," +
                         "book_name varchar(30)," +
+                        "book_own varchar(30)," +
                         "book_auth varchar(30)," +
                         "book_category varchar(30)," +
                         "book_content varchar(90)," +

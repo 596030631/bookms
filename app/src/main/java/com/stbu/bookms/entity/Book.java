@@ -12,7 +12,8 @@ public class Book implements Serializable {
     private String bookId; // 图书编号
     private String bookName; // 图书名称
     private String image; // 图书名称
-    private String bookAuth; // 图书所有者
+    private String bookAuth; // 图书作者
+    private String bookOwn; // 图书所有者
     private String bookCategory; // 图书类别
     private String bookContent; // 图书介绍
     private int bookNumber; // 图书数量
@@ -81,6 +82,14 @@ public class Book implements Serializable {
         this.price = price;
     }
 
+    public String getBookOwn() {
+        return bookOwn;
+    }
+
+    public void setBookOwn(String bookOwn) {
+        this.bookOwn = bookOwn;
+    }
+
     public Book(String bookId, String bookName, int bookNumber) {
         this.bookId = bookId;
         this.bookName = bookName;
@@ -128,7 +137,6 @@ public class Book implements Serializable {
                 ", bookNumber=" + bookNumber +
                 ", price='" + price + '\'' +
                 ", remakeJson='" + remakeJson + '\'' +
-                ", addRemake='" + addRemake + '\'' +
                 '}';
     }
 }

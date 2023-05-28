@@ -38,6 +38,7 @@ public class BookDao {
             values.put("image", book.getImage());
             values.put("book_number", book.getBookNumber());
             values.put("book_auth", book.getBookAuth());
+            values.put("book_own", book.getBookOwn());
             values.put("book_category", book.getBookCategory());
             values.put("book_content", book.getBookContent());
             values.put("book_price", book.getPrice());
@@ -156,6 +157,7 @@ public class BookDao {
                 temp.setBookName(cursor.getString(cursor.getColumnIndex("book_name")));
                 temp.setImage(cursor.getString(cursor.getColumnIndex("image")));
                 temp.setBookAuth(cursor.getString(cursor.getColumnIndex("book_auth")));
+                temp.setBookOwn(cursor.getString(cursor.getColumnIndex("book_own")));
                 temp.setBookCategory(cursor.getString(cursor.getColumnIndex("book_category")));
                 temp.setBookContent(cursor.getString(cursor.getColumnIndex("book_content")));
                 temp.setPrice(cursor.getString(cursor.getColumnIndex("book_price")));
@@ -202,6 +204,7 @@ public class BookDao {
                 temp.setBookName(cursor.getString(cursor.getColumnIndex("book_name")));
                 temp.setImage(cursor.getString(cursor.getColumnIndex("image")));
                 temp.setBookAuth(cursor.getString(cursor.getColumnIndex("book_auth")));
+                temp.setBookOwn(cursor.getString(cursor.getColumnIndex("book_own")));
                 temp.setBookCategory(cursor.getString(cursor.getColumnIndex("book_category")));
                 temp.setBookContent(cursor.getString(cursor.getColumnIndex("book_content")));
                 temp.setPrice(cursor.getString(cursor.getColumnIndex("book_price")));
@@ -285,10 +288,12 @@ public class BookDao {
                 tempBook.setBookName(csearch.getString(csearch.getColumnIndex("book_name")));
                 tempBook.setImage(csearch.getString(csearch.getColumnIndex("image")));
                 tempBook.setBookAuth(csearch.getString(csearch.getColumnIndex("book_auth")));
+                tempBook.setBookOwn(csearch.getString(csearch.getColumnIndex("book_own")));
                 tempBook.setBookCategory(csearch.getString(csearch.getColumnIndex("book_category")));
                 tempBook.setPrice(csearch.getString(csearch.getColumnIndex("book_price")));
                 tempBook.setBookContent(csearch.getString(csearch.getColumnIndex("book_content")));
                 tempBook.setBookNumber(csearch.getInt(csearch.getColumnIndex("book_number")));
+                tempBook.setRemakeJson(csearch.getString(csearch.getColumnIndex("remake")));
                 bookList.add(tempBook);
             }
             csearch.close();

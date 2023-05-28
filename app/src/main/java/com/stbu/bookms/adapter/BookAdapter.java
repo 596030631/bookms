@@ -6,6 +6,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.text.Editable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -66,6 +67,8 @@ public class BookAdapter extends RecyclerView.Adapter<VH<BookItemBinding>> {
     public void onBindViewHolder(@NonNull VH<BookItemBinding> holder, int position) {
         final Book book = books.get(position);
 
+        Log.d("tag", "dldaoif98="+book.toString());
+
         InputStream inputStream;
         try {
             inputStream = context.getAssets().open("book/" + book.getImage());
@@ -77,8 +80,8 @@ public class BookAdapter extends RecyclerView.Adapter<VH<BookItemBinding>> {
         }
 
         holder.binding.tvCategory.setText("类别:" + book.getBookCategory());
-        holder.binding.tvJianjie.setText("图书作者:" + book.getBookContent());
-        holder.binding.tvAuth.setText("所有者:" + book.getBookAuth());
+        holder.binding.tvAuth.setText("图书作者:" + book.getBookAuth());
+        holder.binding.tvOwn.setText("所有者:" + book.getBookOwn());
         holder.binding.tvBookIdShow.setText(book.getBookId());
         holder.binding.tvBookNameShow.setText(book.getBookName());
 
@@ -131,6 +134,7 @@ public class BookAdapter extends RecyclerView.Adapter<VH<BookItemBinding>> {
 
                 holder.binding.btnRemake.setOnClickListener(view -> {
                     book.setAddRemake(editable.toString());
+                    Log.d("yyyy", "lolokoko="+book.toString());
                     onItemClickListenerRemake.click(position, book);
                     holder.binding.etRemake.setText("");
                     Toast.makeText(context, "评论成功", Toast.LENGTH_SHORT).show();
