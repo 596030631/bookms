@@ -74,7 +74,7 @@ public class BookAdapter extends RecyclerView.Adapter<VH<BookItemBinding>> {
             inputStream = context.getAssets().open("book/" + book.getImage());
             Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
             inputStream.close();
-            holder.binding.image.setImageBitmap(bitmap);
+            holder.binding.image.setImageBitmap(bitmap);//holder用来绑定
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

@@ -29,7 +29,7 @@ public class ExchangeActivity extends BaseActivity {
 
     private static final Executor thread = Executors.newSingleThreadExecutor();
     private final ExchangeDao exchangeDao = new ExchangeDao(this);
-    private com.stbu.bookms.databinding.ActivityExchangeBinding binding;
+    private ActivityExchangeBinding binding;
     private List<ExchangeInfo> mDataList;
     private LinearLayoutManager layoutManager;
 
@@ -85,7 +85,7 @@ public class ExchangeActivity extends BaseActivity {
             binding.editText.setText("");
             mDataList.add(info);
             mChatListAdapter.notifyDataSetChanged();
-            layoutManager.scrollToPosition(mDataList.size() - 1);
+            layoutManager.scrollToPosition(mDataList.size() - 1);//滚动到最后一条
 
             thread.execute(() -> {
                 String msg = exchangeDao.addExchangeInfo(info);
@@ -97,7 +97,7 @@ public class ExchangeActivity extends BaseActivity {
     }
 
     @Override
-    public void onWindowFocusChanged(boolean hasFocus) {
+    public void onWindowFocusChanged(boolean hasFocus) {//是否滚动到随后一条信息
         super.onWindowFocusChanged(hasFocus);
         if (hasFocus) {
             int i = layoutManager.findLastVisibleItemPosition();

@@ -38,7 +38,7 @@ public class UpdateUserActivity extends BaseActivity {
     private void initEvent() {
         // 保存更新
         btn_save.setOnClickListener(v -> {
-            if (et_id.length() == 0 || et_name.length() == 0 || et_class_name.length() == 0 || et_pwd.length() == 0 || et_phone_number.length() == 0) {
+            if (et_id.length() == 0 || et_name.length() == 0 || et_class_name.length() == 0 || et_pwd.length() == 0 || et_phone_number.length() != 11) {
                 Toast.makeText(UpdateUserActivity.this, "用户信息未填写完整", Toast.LENGTH_SHORT).show();
             } else {
                 String id = et_id.getText().toString();

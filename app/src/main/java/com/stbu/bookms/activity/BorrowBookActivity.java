@@ -24,7 +24,7 @@ import java.util.ArrayList;
 
 /**
  * @Classname BorrowBookActivity
- * @Description TODO 查看已互换图书信息的活动
+ * @Description TODO 查看已互换图书信息的活动//弃用
  * Version 1.0
  */
 public class BorrowBookActivity extends AppCompatActivity {
@@ -63,7 +63,7 @@ public class BorrowBookActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onStart() {
+    protected void onStart() {//会执行一些需要在界面可见之前完成的初始化操作
         super.onStart();
         ArrayList<Borrow> borrows = borrowDao.showAllBorrowBookForUser(user.getId());
         BorrowAdapter borrowAdapter = new BorrowAdapter(BorrowBookActivity.this, borrows);

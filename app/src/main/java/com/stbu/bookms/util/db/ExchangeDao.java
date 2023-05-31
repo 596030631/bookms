@@ -96,7 +96,7 @@ public class ExchangeDao {
         SQLiteDatabase db = DBManager.getSqliteReadableDatabase(context);
         List<ExchangeInfo> bookList = new ArrayList<>();
 
-        String sql = "SELECT * FROM exchangeInfo ORDER BY time limit 100";
+        String sql = "SELECT * FROM exchangeInfo ORDER BY time limit 100";//按时间排序，只展示前100条
         if (db.isOpen()) {
             Cursor csearch = db.rawQuery(sql, null);
             while (csearch.moveToNext()) {
@@ -123,10 +123,10 @@ public class ExchangeDao {
         StringBuilder users = new StringBuilder("'"+user[0]);
         for (int i = 1; i < user.length; i++) {
             users.append("','").append(user[i]).append("'");
-        }
+        }// 将接收到的多个用户的用户名拼接成一个字符串，用于后面的查询条件
 
         String sql = String.format("SELECT * FROM exchangeInfo WHERE loginUser in(%s) and chatUser in(%s) ORDER BY time limit 1000", users, users);
-        Log.d("tag", "sql=" + sql);
+        Log.d("tag", "sql=" + sql);//拼接查询语句，用String.format()代替直接字符串拼接
         if (db.isOpen()) {
             Cursor csearch = db.rawQuery(sql, null);
             while (csearch.moveToNext()) {
@@ -152,7 +152,7 @@ public class ExchangeDao {
         SQLiteDatabase db = DBManager.getSqliteReadableDatabase(context);
         List<ExchangeInfo> bookList = new ArrayList<>();
 
-        String sql = "SELECT * FROM exchangeInfo GROUP BY loginUser limit 100";
+        String sql = "SELECT * FROM exchangeInfo GROUP BY loginUser limit 100";//按章用户id继续宁分组
         if (db.isOpen()) {
             Cursor csearch = db.rawQuery(sql, null);
             while (csearch.moveToNext()) {

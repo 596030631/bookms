@@ -22,7 +22,7 @@ import java.util.ArrayList;
  * @description TODO 查看互换信息的活动
  * @version 1.0
  */
-public class ViewBorrowActivity extends AppCompatActivity {
+public class ViewBorrowActivity extends AppCompatActivity {//废弃
     private ListView lv_view_borrow;
     private Button btn_return;
     private String userId, bookId;

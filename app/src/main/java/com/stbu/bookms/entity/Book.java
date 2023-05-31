@@ -90,7 +90,7 @@ public class Book implements Serializable {
         this.bookOwn = bookOwn;
     }
 
-    public Book(String bookId, String bookName, int bookNumber) {
+    public Book(String bookId, String bookName, int bookNumber) {//图书修改函数
         this.bookId = bookId;
         this.bookName = bookName;
         this.bookNumber = bookNumber;

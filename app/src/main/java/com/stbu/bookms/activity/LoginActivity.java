@@ -22,13 +22,13 @@ import com.stbu.bookms.util.db.UserDao;
  */
 public class LoginActivity extends BaseActivity {
     private SharedPreferences sharedPreferences;
-    private com.stbu.bookms.databinding.ActivityLoginBinding binding;
+    private ActivityLoginBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // 去掉状态栏, 此段代码应放在关联布局文件代码之前
+        // 去掉状态栏, 此段代码应放在关联布局文件代码之前，状态栏是 Android 手机顶部的一条系统栏
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
@@ -42,7 +42,7 @@ public class LoginActivity extends BaseActivity {
 
         initView();
 
-        sharedPreferences = getSharedPreferences("userInfo", 0);
+        sharedPreferences = getSharedPreferences("userInfo", 0);//SharedPreferences 是 Android 中的一种轻型存储方式，用于存储一些简单的键值对数据
         String account = sharedPreferences.getString("id", "");
         String password = sharedPreferences.getString("password", "");
 

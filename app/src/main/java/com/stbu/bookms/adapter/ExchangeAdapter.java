@@ -40,7 +40,7 @@ public class ExchangeAdapter extends RecyclerView.Adapter<VH<ItemExchangeBinding
 
 
     @Override
-    public void onBindViewHolder(@NonNull VH<ItemExchangeBinding> holder, int position) {
+    public void onBindViewHolder(@NonNull VH<ItemExchangeBinding> holder, int position) {//viewgone不可见
         ExchangeInfo info = data.get(position);
         if (LOGIN_USER.equals(info.loginUser)) {
             holder.binding.tv1.setVisibility(View.GONE);
@@ -56,16 +56,7 @@ public class ExchangeAdapter extends RecyclerView.Adapter<VH<ItemExchangeBinding
             holder.binding.tv1.setText(info.message);
         }
 
-//        holder.binding.tvIdShow.setText("ID:"+user.getId());
-//        holder.binding.tvAddress.setText("地址:"+user.getAddress());
-//        holder.binding.tvPhoneNumberShow.setText("手机:"+user.getPhoneNumber());
-//        holder.binding.tvPwdShow.setText("密码:"+user.getPassword());
-//        holder.binding.tvNameShow.setText("姓名:"+user.getName());
-//        holder.binding.getRoot().setOnClickListener(view -> {
-//            if (onItemClickListener != null) {
-//                onItemClickListener.click(holder.getAdapterPosition(), user);
-//            }
-//        });
+//
     }
 
     @Override

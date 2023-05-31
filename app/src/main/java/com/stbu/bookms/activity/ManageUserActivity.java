@@ -16,7 +16,7 @@ import com.stbu.bookms.databinding.ActivityUserManageBinding;
  */
 public class ManageUserActivity extends BaseActivity {
 
-    private com.stbu.bookms.databinding.ActivityUserManageBinding binding;
+    private ActivityUserManageBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -28,11 +28,11 @@ import java.util.List;
  * @className ViewBookActivity
  * @description TODO 查看图书信息活动类
  */
-public class ViewBookActivity extends BaseActivity {
+public class ViewBookActivity extends BaseActivity {//view为管理员界面
     private BookDao bookDao = new BookDao(ViewBookActivity.this);
     private BorrowDao borrowDao = new BorrowDao(ViewBookActivity.this);
     private BookAdapter bookAdapter;
-    private com.stbu.bookms.databinding.ActivityViewBookBinding binding;
+    private ActivityViewBookBinding binding;
 
     private static final String[] items = {"经济投资", "人文社科", "教育培训", "少儿图书", "文学小说", "学习用书",
             "IT科技", "成功励志", "热门考试", "生活知识"};
@@ -59,7 +59,7 @@ public class ViewBookActivity extends BaseActivity {
         ArrayAdapter<String> adapterSpinner = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
         binding.spinner.setAdapter(adapterSpinner);
 
-        binding.spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        binding.spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {//图书类别
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 category = items[i];
@@ -137,7 +137,7 @@ public class ViewBookActivity extends BaseActivity {
 //
 //        });
 
-        if ("admin".equals(LOGIN_USER)) {
+        if ("admin".equals(LOGIN_USER)) {//删除评论
             bookAdapter.setOnItemClickListenerRemakeDel((position, user) -> {
 
                 for (int i = 0; i < datas.size(); i++) {
@@ -166,7 +166,7 @@ public class ViewBookActivity extends BaseActivity {
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("book", book);
                 intent.setClass(ViewBookActivity.this, UpdateBookActivity.class);
-                intent.putExtras(bundle);
+                intent.putExtras(bundle);//使用 putExtra() 方法将所有支持的数据类型添加到 Intent 对象中
                 startActivity(intent);
                 finish();
             });

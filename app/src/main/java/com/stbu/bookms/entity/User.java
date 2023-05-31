@@ -82,7 +82,7 @@ public class User implements Serializable {
     }
 
     @Override
-    public String toString() {
+    public String toString() {//返回对象类的所有属性
         return "User{" +
                 "id='" + id + '\'' +
                 ", name='" + name + '\'' +

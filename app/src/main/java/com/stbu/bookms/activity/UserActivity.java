@@ -53,7 +53,7 @@ public class UserActivity extends BaseActivity {
     private ScheduledExecutorService scheduledExecutorService;
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
-    private com.stbu.bookms.databinding.ActivityUserBinding binding;
+    private ActivityUserBinding binding;
 
     private final UserDao userDao = new UserDao(this);
 
@@ -73,11 +73,11 @@ public class UserActivity extends BaseActivity {
     }
 
     @Override
-    protected void onResume() {
+    protected void onResume() {//它会在 Activity 被恢复时被调用。当用户导航回到 Activity 时，onResume() 方法会被执行，此时可以进行一些 UI 更新等相关操作。
         super.onResume();
         User fff = userDao.findUserById(user);
         if (fff != null) {
-           binding.tvAmount.setText("金额:"+ fff.getAmount());
+           binding.tvAmount.setText("金额:"+ fff.getAmount());//更新金额
         }
     }
 
@@ -109,7 +109,7 @@ public class UserActivity extends BaseActivity {
 
         binding.viewpager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
-            public void onPageSelected(int position) {
+            public void onPageSelected(int position) {//轮播图
                 title.setText(titles[position]);
                 dots.get(position).setBackgroundResource(R.drawable.book);
                 dots.get(oldPosition).setBackgroundResource(R.drawable.icon);
@@ -118,7 +118,7 @@ public class UserActivity extends BaseActivity {
             }
 
             @Override
-            public void onPageScrollStateChanged(int state) {
+            public void onPageScrollStateChanged(int state) {//在 ViewPager 中页面滚动状态发生变化时被调用。具体来说，当页面滚动状态发生变化时，例如开始滚动、正在滚动、停止滚动时，该方法会被回调。
 
             }
 
@@ -224,12 +224,12 @@ public class UserActivity extends BaseActivity {
             finish();
         });
 
-        binding.btnPay.setOnClickListener(view -> {
-            DialogPayBinding dialogPayBinding = DialogPayBinding.inflate(getLayoutInflater());
-            AlertDialog dialog = new AlertDialog.Builder(UserActivity.this)
+        binding.btnPay.setOnClickListener(view -> {//支付
+            DialogPayBinding dialogPayBinding = DialogPayBinding.inflate(getLayoutInflater());//对话框布局文件 dialog_pay.xml 中获取与该布局文件相关联的 DialogPayBinding 对象
+            AlertDialog dialog = new AlertDialog.Builder(UserActivity.this)//xml_pay
                     .setView(dialogPayBinding.getRoot())
                     .create();
-            dialog.show();
+            dialog.show();//AlertDialog 是 Android 中的一种 Dialog 类型，通常用于向用户展示一些提示性的信息或者弹出一个确认对话框，让用户进行选择或者操作
 
             dialogPayBinding.payButton.setOnClickListener(view1 -> {
                 dialog.dismiss();
@@ -271,16 +271,7 @@ public class UserActivity extends BaseActivity {
             finish();
         });
 
-        // 查看已借书籍
-//        binding.btnViewBorrowBook.setOnClickListener(v -> {
-//            Intent intent = new Intent();
-//            Bundle bundle = new Bundle();
-//            bundle.putString("id", user.getId());
-//            intent.putExtras(bundle);
-//            intent.setClass(getApplicationContext(), BorrowBookActivity.class);
-//            startActivity(intent);
-//            finish();
-//        });
+
 
         // 修改用户密码
         binding.btnUpdateUserPwd.setOnClickListener(v -> {

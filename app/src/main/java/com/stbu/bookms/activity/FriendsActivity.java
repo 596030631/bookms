@@ -25,9 +25,9 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
 // 好友列表
-public class FriendsActivity extends BaseActivity {
+public class FriendsActivity extends BaseActivity {//与交流相互跳转
 
-    private com.stbu.bookms.databinding.ActivityFriendsBinding binding;
+    private ActivityFriendsBinding binding;
     private FriendsAdapter adapter;
     private final List<ExchangeInfo> friendsList = new ArrayList<>();
 

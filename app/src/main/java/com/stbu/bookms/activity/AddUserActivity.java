@@ -22,7 +22,7 @@ import com.stbu.bookms.util.db.UserDao;
  * @version 1.0
  */
 public class AddUserActivity extends BaseActivity {
-    private com.stbu.bookms.databinding.ActivityAddUserBinding binding;
+    private ActivityAddUserBinding binding;
     private final ExchangeDao exchangeDao = new ExchangeDao(this);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +30,7 @@ public class AddUserActivity extends BaseActivity {
         binding = ActivityAddUserBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        binding.getRoot().setOnClickListener(view -> hideKeyBoard(binding.etAmount));
+        binding.getRoot().setOnClickListener(view -> hideKeyBoard(binding.etAmount));//金额
         initView();
         initEvent();
     }
@@ -47,8 +47,8 @@ public class AddUserActivity extends BaseActivity {
 
             User user = new User(tempId, tempName, tempClassName, tempPassword, tempPhoneNumber, amount);
             UserDao userDao = new UserDao(AddUserActivity.this);
-            if (tempId.length() == 0 || tempName.length() == 0 || tempClassName.length() == 0 || tempPassword.length() == 0 || tempPhoneNumber.length() == 0) {
-                Toast.makeText(AddUserActivity.this, "用户信息未填写完整", Toast.LENGTH_SHORT).show();
+            if (tempId.length() == 0 || tempName.length() == 0 || tempClassName.length() == 0 || tempPassword.length() == 0 || tempPhoneNumber.length() != 11) {
+                Toast.makeText(AddUserActivity.this, "用户信息未填写完整或错误", Toast.LENGTH_SHORT).show();
             } else {
                 // 查询用户是否存在
                 if (userDao.checkExist(user)) {

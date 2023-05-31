@@ -33,7 +33,7 @@ import java.util.concurrent.Executors;
  */
 public class ViewUserActivity extends AppCompatActivity {
     private final UserDao userDao = new UserDao(ViewUserActivity.this);
-    private com.stbu.bookms.databinding.ActivityViewUserBinding binding;
+    private ActivityViewUserBinding binding;
     private static final Executor threads = Executors.newCachedThreadPool();
     private final Handler handler = new Handler(Looper.getMainLooper());
     private final List<User> users = new ArrayList<>();

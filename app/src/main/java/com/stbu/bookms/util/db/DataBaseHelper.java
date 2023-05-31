@@ -27,7 +27,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
                     ")";
 
     public DataBaseHelper(@Nullable Context context, @Nullable String name, @Nullable SQLiteDatabase.CursorFactory factory, int version) {
-        super(context, name, factory, version);
+        super(context, name, factory, version);//@Nullable表示可以为Null
     }
 
     /**
@@ -111,7 +111,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         Log.d(TAG, "数据库及表创建成功");
         if (oldVersion == 1 && newVersion == 2) {
             ;
-            db.execSQL("alter table  userInfo add amount varchar(30)");
+            db.execSQL("alter table  userInfo add amount varchar(30)");//修改金额数据
         }
     }
 }

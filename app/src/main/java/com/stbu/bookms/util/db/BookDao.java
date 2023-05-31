@@ -43,11 +43,7 @@ public class BookDao {
             values.put("book_content", book.getBookContent());
             values.put("book_price", book.getPrice());
 
-            //                temp.setBookAuth(cursor.getString(cursor.getColumnIndex("")));
-            //                temp.setBookCategory(cursor.getString(cursor.getColumnIndex("")));
-            //                temp.setBookContent(cursor.getString(cursor.getColumnIndex("")));
-            //                temp.setPrice(cursor.getString(cursor.getColumnIndex("")));
-            //                temp.setBookNumber(cursor.getInt(cursor.getColumnIndex("book_number")));
+
 
 
             int rows = (int) db.insert(
@@ -145,14 +141,9 @@ public class BookDao {
                     null
             );
             data = new ArrayList<>();
-            while (cursor.moveToNext()) {
+            while (cursor.moveToNext()) {//跳转下一条记录
                 Book temp = new Book();
-                //   "book_id varchar(30)PRIMARY KEY," +
-                //                        " varchar(30)," +
-                //                        " varchar(30)," +
-                //                        " varchar(90)," +
-                //                        " varchar(30)," +
-                //                        " int" +
+
                 temp.setBookId(cursor.getString(cursor.getColumnIndex("book_id")));
                 temp.setBookName(cursor.getString(cursor.getColumnIndex("book_name")));
                 temp.setImage(cursor.getString(cursor.getColumnIndex("image")));
@@ -179,7 +170,7 @@ public class BookDao {
         ArrayList<Book> data = null;
         SQLiteDatabase db = DBManager.getSqliteReadableDatabase(context);
         if (db.isOpen()) {
-            Cursor cursor = db.query(
+            Cursor cursor = db.query(//Cursor用于封装sql语句
                     "bookInfo",
                     null,
                     null,
@@ -187,19 +178,12 @@ public class BookDao {
                     null,
                     null,
                     "book_price",
-                    "10"
+                    null
             );
             data = new ArrayList<>();
             while (cursor.moveToNext()) {
                 Book temp = new Book();
-                //  "book_id varchar(30)PRIMARY KEY," +
-                //                        "image varchar(90)," +
-                //                        "book_name varchar(30)," +
-                //                        "book_auth varchar(30)," +
-                //                        "book_category varchar(30)," +
-                //                        "book_content varchar(90)," +
-                //                        "book_price varchar(30)," +
-                //                        "book_number int" +
+
                 temp.setBookId(cursor.getString(cursor.getColumnIndex("book_id")));
                 temp.setBookName(cursor.getString(cursor.getColumnIndex("book_name")));
                 temp.setImage(cursor.getString(cursor.getColumnIndex("image")));
@@ -273,17 +257,10 @@ public class BookDao {
 
         String sql = "SELECT * FROM bookInfo WHERE book_name LIKE '%" + bookName + "%'";
         if (db.isOpen()) {
-            Cursor csearch = db.rawQuery(sql, null);
+            Cursor csearch = db.rawQuery(sql, null);//将类对象返回到csearch
             while (csearch.moveToNext()) {
                 Book tempBook = new Book();
-                //  "book_id varchar(30)PRIMARY KEY," +
-                //                        "image varchar(90)," +
-                //                        "book_name varchar(30)," +
-                //                        "book_auth varchar(30)," +
-                //                        "book_category varchar(30)," +
-                //                        "book_content varchar(90)," +
-                //                        "book_price varchar(30)," +
-                //                        "book_number int" +
+
                 tempBook.setBookId(csearch.getString(csearch.getColumnIndex("book_id")));
                 tempBook.setBookName(csearch.getString(csearch.getColumnIndex("book_name")));
                 tempBook.setImage(csearch.getString(csearch.getColumnIndex("image")));
@@ -315,14 +292,7 @@ public class BookDao {
             Cursor csearch = db.rawQuery(sql, null);
             while (csearch.moveToNext()) {
                 Book tempBook = new Book();
-                //  "book_id varchar(30)PRIMARY KEY," +
-                //                        "image varchar(90)," +
-                //                        "book_name varchar(30)," +
-                //                        "book_auth varchar(30)," +
-                //                        "book_category varchar(30)," +
-                //                        "book_content varchar(90)," +
-                //                        "book_price varchar(30)," +
-                //                        "book_number int" +
+
                 tempBook.setBookId(csearch.getString(csearch.getColumnIndex("book_id")));
                 tempBook.setBookName(csearch.getString(csearch.getColumnIndex("book_name")));
                 tempBook.setImage(csearch.getString(csearch.getColumnIndex("image")));
@@ -412,7 +382,7 @@ public class BookDao {
     public void updateBorrowBookInfo(Book book) {
         SQLiteDatabase db = DBManager.getSqliteWritableDatabase(context);
         if (db.isOpen()) {
-            ContentValues values = new ContentValues();
+            ContentValues values = new ContentValues();//ContentValues常常用于插入或更新数据到SQLite数据库中，因为插入或更新数据时需要将数据封装成ContentValues对象
             values.put("book_id", book.getBookId());
             values.put("book_name", book.getBookName());
             values.put("book_number", book.getBookNumber());

@@ -17,7 +17,7 @@ import java.util.List;
  * @Description TODO 用户信息类适配器
  * Version 1.0
  */
-public class UserAdapter extends RecyclerView.Adapter<VH<com.stbu.bookms.databinding.UserItemBinding>> {
+public class UserAdapter extends RecyclerView.Adapter<VH<UserItemBinding>> {
 
     private final List<User> users;
     private final Context context;

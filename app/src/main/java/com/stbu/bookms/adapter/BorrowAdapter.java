@@ -17,7 +17,7 @@ import java.util.ArrayList;
  * @Description TODO 互换信息类适配器
  * Version 1.0
  */
-public class BorrowAdapter extends BaseAdapter {
+public class BorrowAdapter extends BaseAdapter {//弃用
     private ArrayList<Borrow> borrows;
     private Context context;
     private ViewHolder viewHolder;

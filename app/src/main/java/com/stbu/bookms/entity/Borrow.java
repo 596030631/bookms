@@ -11,7 +11,7 @@ public class Borrow {
     private String borrowBookName; // 互换图书数量
     private String address;
     private String buyer_name;
-    private String sale_name;
+    private String own;
     private String price;
     private String datetime;
     private String remake;
@@ -36,12 +36,12 @@ public class Borrow {
         this.buyer_name = buyer_name;
     }
 
-    public String getSale_name() {
-        return sale_name;
+    public String getOwn() {
+        return own;
     }
 
-    public void setSale_name(String sale_name) {
-        this.sale_name = sale_name;
+    public void setOwn(String own) {
+        this.own = own;
     }
 
     public String getPrice() {
@@ -107,6 +107,7 @@ public class Borrow {
         this.borrowBookName = borrowBookName;
     }
 
+
     @Override
     public String toString() {
         return "Borrow{" +
@@ -115,7 +116,7 @@ public class Borrow {
                 ", borrowBookName='" + borrowBookName + '\'' +
                 ", address='" + address + '\'' +
                 ", buyer_name='" + buyer_name + '\'' +
-                ", sale_name='" + sale_name + '\'' +
+                ", own='" + own + '\'' +
                 ", price='" + price + '\'' +
                 ", datetime='" + datetime + '\'' +
                 ", remake='" + remake + '\'' +

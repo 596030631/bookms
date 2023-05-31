@@ -17,7 +17,7 @@ import com.stbu.bookms.databinding.ActivityAdminBinding;
  */
 public class AdminActivity extends BaseActivity {
 
-    private com.stbu.bookms.databinding.ActivityAdminBinding binding;
+    private ActivityAdminBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

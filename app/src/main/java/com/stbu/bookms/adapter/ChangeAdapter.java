@@ -1,6 +1,7 @@
 package com.stbu.bookms.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -39,10 +40,11 @@ public class ChangeAdapter extends RecyclerView.Adapter<VH<ItemChangeBinding>> {
     @Override
     public void onBindViewHolder(@NonNull VH<ItemChangeBinding> holder, int position) {
         Borrow info = data.get(position);
+        Log.d("tag", "vvvvv="+info.toString());
         holder.binding.name.setText("书名:" + info.getBorrowBookName());
         holder.binding.address.setText("地址:" + info.getAddress());
         holder.binding.user.setText("图书交换人:" + info.getBuyer_name());
-        holder.binding.sale.setText("图书所有人:" + info.getSale_name());
+        holder.binding.own.setText("图书所有人:" + info.getOwn());
         holder.binding.price.setText("价格:" + info.getPrice());
         holder.binding.datetime.setText("时间:" + info.getDatetime());
         holder.binding.remake.setText("评论:" + info.getRemake());

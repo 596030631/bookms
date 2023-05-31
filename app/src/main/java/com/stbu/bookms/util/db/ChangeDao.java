@@ -1,4 +1,4 @@
-//package com.stbu.bookms.util.db;
+package com.stbu.bookms.util.db;//package com.stbu.bookms.util.db;
 //
 //import android.content.ContentValues;
 //import android.content.Context;

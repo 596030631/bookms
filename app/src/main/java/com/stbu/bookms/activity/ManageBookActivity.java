@@ -11,9 +11,9 @@ import com.stbu.bookms.databinding.ActivityBookManageBinding;
  * @className ManageBookActivity
  * @description TODO 管理图书信息页面
  */
-public class ManageBookActivity extends BaseActivity {
+public class ManageBookActivity extends BaseActivity {//添加或查看书籍
 
-    private com.stbu.bookms.databinding.ActivityBookManageBinding binding;
+    private ActivityBookManageBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

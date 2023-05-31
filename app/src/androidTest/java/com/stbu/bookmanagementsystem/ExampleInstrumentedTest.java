@@ -1,4 +1,4 @@
-package com.stbu.bookms;
+package com.stbu.bookmanagementsystem;
 
 import android.content.Context;
 

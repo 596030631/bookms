@@ -38,13 +38,13 @@ public class FriendsAdapter extends RecyclerView.Adapter<VH<ItemFriendBinding>> 
 
     @Override
     public void onBindViewHolder(@NonNull VH<ItemFriendBinding> holder, int position) {
-        ExchangeInfo info = data.get(position);
+        ExchangeInfo info = data.get(position);//指定位置
 
         holder.binding.user.setText(info.loginUser);
         holder.binding.message.setText(info.message);
 
 
-        holder.binding.getRoot().setOnClickListener(view -> {
+        holder.binding.getRoot().setOnClickListener(view -> {//监听
             if (onItemClickListener != null) {
                 onItemClickListener.click(holder.getAdapterPosition(), info);
             }

@@ -51,7 +51,7 @@ public class FindBookActivity extends BaseActivity {
     private BookAdapter bookAdapter;
 
     private final List<Book> datas = new ArrayList<>();
-    private com.stbu.bookms.databinding.ActivityFindBookBinding binding;
+    private ActivityFindBookBinding binding;
     private static final String[] items = {"经济投资", "人文社科", "教育培训", "少儿图书", "文学小说", "学习用书",
             "IT科技", "成功励志", "热门考试", "生活知识"};
 
@@ -73,11 +73,11 @@ public class FindBookActivity extends BaseActivity {
             @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                category = items[i];
+                category = items[i];//分类
 
                 String temp = binding.etBookNameSearch.getText().toString().trim();
                 List<Book> books = bookDao.findBookByName(temp);
-                datas.clear();
+                datas.clear();//清空 List 中的所有元素
 
                 for (int j = 0; j < books.size(); j++) {
                     if (category.equals(books.get(j).getBookCategory())) {
@@ -137,11 +137,11 @@ public class FindBookActivity extends BaseActivity {
         binding.recyclerview.setAdapter(bookAdapter);
         binding.recyclerview.setLayoutManager(new LinearLayoutManager(this));
 
-        bookAdapter.setOnItemClickListenerRemake((position, user) -> {
+        bookAdapter.setOnItemClickListenerRemake((position, user) -> {//评论
 
-            Gson gson = new Gson();
+            Gson gson = new Gson();// JSON 格式的数据和 Java 对象之间进行相互转换
             Type type = new TypeToken<List<Book.BookRemake>>() {
-            }.getType(); // 使用 TypeToken 获取要解析的类型
+            }.getType(); // 使用 TypeToken 获取要解析的类型，token身份验证令牌
             List<Book.BookRemake> personList = gson.fromJson(user.getRemakeJson(), type);
             Book.BookRemake bookRemake = new Book.BookRemake();
             bookRemake.remake = user.getAddRemake();
@@ -174,7 +174,7 @@ public class FindBookActivity extends BaseActivity {
 
         bookAdapter.setOnItemClickListener(new OnItemClickListener<Book>() {
             @Override
-            public void click(int position, Book bookInfo) {
+            public void click(int position, Book bookInfo) {//互换图书操作
 
 
                 bookId = bookInfo.getBookId();
@@ -195,7 +195,7 @@ public class FindBookActivity extends BaseActivity {
                         Toast.makeText(getApplicationContext(), "你已互换，不可重复互换", Toast.LENGTH_SHORT).show();
                     } else {
 
-                        DialogChangeBinding dialogBinding = DialogChangeBinding.inflate(getLayoutInflater());
+                        DialogChangeBinding dialogBinding = DialogChangeBinding.inflate(getLayoutInflater());//xml_dialog_change
                         AlertDialog dialog = new AlertDialog.Builder(FindBookActivity.this)
                                 .setView(dialogBinding.getRoot())
                                 .create();
@@ -204,7 +204,7 @@ public class FindBookActivity extends BaseActivity {
 
                         dialogBinding.book.setText(bookInfo.getBookName());
                         dialogBinding.buyer.setText(LOGIN_USER);
-                        dialogBinding.saleName.setText(bookInfo.getBookAuth());
+                        dialogBinding.saleName.setText(bookInfo.getBookOwn());
                         dialogBinding.price.setText(bookInfo.getPrice());
 
                         final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.CHINA);
@@ -228,7 +228,7 @@ public class FindBookActivity extends BaseActivity {
                             final Borrow changeInfo = new Borrow();
 
                             changeInfo.setAddress(address.toString());
-                            changeInfo.setSale_name(bookInfo.getBookAuth());
+                            changeInfo.setOwn(bookInfo.getBookOwn());
                             changeInfo.setBuyer_name(LOGIN_USER);
                             changeInfo.setBorrowBookName(bookInfo.getBookName());
                             changeInfo.setPrice(bookInfo.getPrice());
@@ -244,7 +244,7 @@ public class FindBookActivity extends BaseActivity {
                             User userInfo = userDao.findUserById(user);
 
 
-                            User user2 = new User(bookInfo.getBookAuth(), "");
+                            User user2 = new User(bookInfo.getBookOwn(), "");
                             user2 = userDao.findUserById(user2);
 
 
@@ -258,8 +258,8 @@ public class FindBookActivity extends BaseActivity {
                                 return;
                             }
 
-                            BigDecimal bigDecimal = new BigDecimal(userInfo.getAmount());
-                            bigDecimal = bigDecimal.subtract(new BigDecimal(bookInfo.getPrice()));
+                            BigDecimal bigDecimal = new BigDecimal(userInfo.getAmount());//任意精度的金额
+                            bigDecimal = bigDecimal.subtract(new BigDecimal(bookInfo.getPrice()));//相减
                             if (bigDecimal.compareTo(BigDecimal.ZERO) < 0) {
                                 Toast.makeText(FindBookActivity.this, "余额不足", Toast.LENGTH_SHORT).show();
                                 return;
@@ -273,7 +273,7 @@ public class FindBookActivity extends BaseActivity {
                             userDao.updateUserAmount(user);
 
 
-                            BigDecimal fff = new BigDecimal(user2.getAmount());
+                            BigDecimal fff = new BigDecimal(user2.getAmount());//金额处理
                             fff = fff.add(new BigDecimal(bookInfo.getPrice()));
                             user2.setAmount(fff.toString());
                             userDao.updateUserAmount(user2);
@@ -282,7 +282,7 @@ public class FindBookActivity extends BaseActivity {
                             bookDao.updateBorrowBookInfo(tempBook);
 
 
-                            // 增加借书信息
+                            // 增加换书信息
                             borrowDao.addBorrowBookInfo(changeInfo);
                             bookDao = new BookDao(FindBookActivity.this);
                             Toast.makeText(getApplicationContext(), "互换成功", Toast.LENGTH_SHORT).show();

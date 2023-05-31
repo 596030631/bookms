@@ -15,7 +15,7 @@ import com.stbu.bookms.util.db.UserDao;
 
 public class RegisterActivity extends BaseActivity {
 
-    private com.stbu.bookms.databinding.ActivityRegisterBinding binding;
+    private ActivityRegisterBinding binding;
     private final ExchangeDao exchangeDao = new ExchangeDao(this);
 
     @Override
@@ -26,7 +26,7 @@ public class RegisterActivity extends BaseActivity {
         setContentView(binding.getRoot());
 
         binding.getRoot().setOnClickListener(view -> {
-            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);//输入法管理
             imm.hideSoftInputFromWindow(binding.inputAccount.getWindowToken(), 0);
 
         });

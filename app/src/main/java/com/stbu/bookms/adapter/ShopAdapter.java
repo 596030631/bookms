@@ -58,5 +58,5 @@ public class ShopAdapter extends RecyclerView.Adapter<VH<ItemShopBinding>> {
     public void setOnclickCallback(OnItemClickListener listener) {
         onItemClickListener = listener;
     }
-}
+}//用在activity中
 

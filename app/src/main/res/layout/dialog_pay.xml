@@ -24,8 +24,8 @@
         android:layout_below="@id/eeee"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
-        android:layout_width="300dp"
-        android:layout_height="340dp"
+        android:layout_width="128dp"
+        android:layout_height="128dp"
         android:src="@drawable/img_pay" />
 
     <LinearLayout

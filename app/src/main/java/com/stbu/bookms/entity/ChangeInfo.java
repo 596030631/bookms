@@ -1,4 +1,4 @@
-//package com.stbu.bookms.entity;
+package com.stbu.bookms.entity;//package com.stbu.bookms.entity;
 //
 //public class ChangeInfo {
 //    public String buyerName;

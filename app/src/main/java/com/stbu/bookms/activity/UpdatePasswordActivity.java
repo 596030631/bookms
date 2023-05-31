@@ -21,7 +21,7 @@ import com.stbu.bookms.util.db.UserDao;
  */
 public class UpdatePasswordActivity extends AppCompatActivity {
     private User user;
-    private com.stbu.bookms.databinding.ActivityUpdatePasswordBinding binding;
+    private ActivityUpdatePasswordBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +37,7 @@ public class UpdatePasswordActivity extends AppCompatActivity {
     private void initEvent() {
         // 保存
         binding.btnSave.setOnClickListener(v -> {
-            String newPassword = binding.etNewPwd.getEditableText().toString().trim();
+            String newPassword = binding.etNewPwd.getEditableText().toString().trim();//可以去掉字符串两端的空格或其他指定字符，并返回新的字符串。
             String confirmPassword = binding.etConfirmPwd.getEditableText().toString().trim();
             System.out.println(newPassword);
             System.out.println(confirmPassword);

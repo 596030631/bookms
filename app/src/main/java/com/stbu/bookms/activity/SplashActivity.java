@@ -13,7 +13,7 @@ import com.stbu.bookms.R;
  * @description TODO APP启动页面
  */
 public class SplashActivity extends BaseActivity {
-    private final Handler handler = new Handler(Looper.getMainLooper());
+    private final Handler handler = new Handler(Looper.getMainLooper());//主线程中执行消息队列中的操作。
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
